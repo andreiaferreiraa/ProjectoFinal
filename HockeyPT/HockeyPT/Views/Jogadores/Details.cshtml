@@ -1,7 +1,7 @@
 ﻿@model HockeyPT.Models.Jogadores
 
 @{
-    Layout = null;
+    ViewBag.Title = "DetailsJogador";
 }
 
 <!DOCTYPE html>
@@ -15,73 +15,70 @@
     <div>
         <h4>Jogadores</h4>
         <hr />
+            <a href="~/JogadoresFotos/@Model.Fotografia" target="_blank">
+                    <img src="~/JogadoresFotos/@Model.Fotografia" width="250" height="409" />
+                </a>
+            </div>
         <dl class="dl-horizontal">
+            
             <dt>
                 @Html.DisplayNameFor(model => model.Equipa.Nome)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Equipa.Nome)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Nome)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Nome)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Posicao)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Posicao)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.DataNascimento)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.DataNascimento)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Nacionalidade)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Nacionalidade)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Altura)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Altura)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Peso)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Peso)
             </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Fotografia)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Fotografia)
-            </dd>
-    
+
         </dl>
-    </div>
+    
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
         @Html.ActionLink("Back to List", "Index")

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -11,6 +12,7 @@ namespace HockeyPT.Models
         public Noticias()
         {
             ListaDeEquipas = new HashSet<Equipas>();
+            ListaDeComentarios = new HashSet<Comentarios>();
         }
 
         [Key]
@@ -20,11 +22,11 @@ namespace HockeyPT.Models
 
         public string Conteudo { get; set; }
 
+        public DateTime Data { get; set; }
+
         public string Fotografia { get; set; }
-
-
+        
         public virtual ICollection<Equipas> ListaDeEquipas { get; set; }
-
         public virtual ICollection<Comentarios> ListaDeComentarios { get; set; }
     }
 }

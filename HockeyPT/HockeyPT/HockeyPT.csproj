@@ -52,10 +52,49 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0-alpha1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.1.0-alpha1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.1.0-alpha1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.2.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.2.1.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.2.1.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.2.1.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -147,31 +186,198 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EquipasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JogadoresController.cs" />
-    <Compile Include="Controllers\TorneiosController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NoticiasController.cs" />
+    <Compile Include="Controllers\RolesAdminController.cs" />
+    <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\Comentarios.cs" />
     <Compile Include="Models\Equipas.cs" />
-    <Compile Include="Models\HockeyBD.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Jogadores.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Noticias.cs" />
     <Compile Include="Models\Torneios.cs" />
     <Compile Include="Models\Utilizadores.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="EquipasFotos\Barcelos.jpg" />
+    <Content Include="EquipasFotos\Benfica.jpg" />
+    <Content Include="EquipasFotos\Braga.jpg" />
+    <Content Include="EquipasFotos\Grandola.jpg" />
+    <Content Include="EquipasFotos\InfanteSagres.jpg" />
+    <Content Include="EquipasFotos\Oliveirense.jpg" />
+    <Content Include="EquipasFotos\PacoArcos.jpg" />
+    <Content Include="EquipasFotos\Porto.jpg" />
+    <Content Include="EquipasFotos\Sporting.jpg" />
+    <Content Include="EquipasFotos\Tomar.jpg" />
+    <Content Include="EquipasFotos\Turquel.jpg" />
+    <Content Include="EquipasFotos\Valenca.jpg" />
+    <Content Include="EquipasFotos\Valongo.jpg" />
+    <Content Include="EquipasFotos\Viana.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="JogadoresFotos\AfonsoLima.jpg" />
+    <Content Include="JogadoresFotos\Alvarinho.jpg" />
+    <Content Include="JogadoresFotos\AndreAlmeida.jpg" />
+    <Content Include="JogadoresFotos\AndreAzevedo.jpg" />
+    <Content Include="JogadoresFotos\AndreCenteno.jpg" />
+    <Content Include="JogadoresFotos\AndreMoreira.jpg" />
+    <Content Include="JogadoresFotos\AndrePimenta.jpg" />
+    <Content Include="JogadoresFotos\AngeloFernandes.jpg" />
+    <Content Include="JogadoresFotos\AngeloGirao.jpg" />
+    <Content Include="JogadoresFotos\AntonioPereira.jpg" />
+    <Content Include="JogadoresFotos\AntonioTrabulo.jpg" />
+    <Content Include="JogadoresFotos\BrunoFernandes.jpg" />
+    <Content Include="JogadoresFotos\Caio.jpg" />
+    <Content Include="JogadoresFotos\CarlesGrau.jpg" />
+    <Content Include="JogadoresFotos\Carlitos.jpg" />
+    <Content Include="JogadoresFotos\CarlosAndre.jpg" />
+    <Content Include="JogadoresFotos\CarlosLoureiro.jpg" />
+    <Content Include="JogadoresFotos\CarlosNicolia.jpg" />
+    <Content Include="JogadoresFotos\CelsoSilva.jpg" />
+    <Content Include="JogadoresFotos\DanielHomem.jpg" />
+    <Content Include="JogadoresFotos\DanielMatias.jpg" />
+    <Content Include="JogadoresFotos\DiogoAbreu.jpg" />
+    <Content Include="JogadoresFotos\DiogoAlmeida.jpg" />
+    <Content Include="JogadoresFotos\DiogoAlves.jpg" />
+    <Content Include="JogadoresFotos\DiogoRafael.jpg" />
+    <Content Include="JogadoresFotos\DiogoRodrigues.jpg" />
+    <Content Include="JogadoresFotos\DomingosPinho.jpg" />
+    <Content Include="JogadoresFotos\EmanuelGarcia.jpg" />
+    <Content Include="JogadoresFotos\FerranFont.jpg" />
+    <Content Include="JogadoresFotos\FilipeBernardino.jpg" />
+    <Content Include="JogadoresFotos\FranciscoSilva.jpg" />
+    <Content Include="JogadoresFotos\FranciscoVeludo.jpg" />
+    <Content Include="JogadoresFotos\GabrielCosta.jpg" />
+    <Content Include="JogadoresFotos\GoncaloAlves.jpg" />
+    <Content Include="JogadoresFotos\GoncaloMeira.jpg" />
+    <Content Include="JogadoresFotos\GoncaloNeto.jpg" />
+    <Content Include="JogadoresFotos\GoncaloNunes.jpg" />
+    <Content Include="JogadoresFotos\GonçaloSuissas.jpg" />
+    <Content Include="JogadoresFotos\GuidoOliva.jpg" />
+    <Content Include="JogadoresFotos\GuilhermeSilva.jpg" />
+    <Content Include="JogadoresFotos\GuillemTrabal.jpg" />
+    <Content Include="JogadoresFotos\GustavoLima.jpg" />
+    <Content Include="JogadoresFotos\HelderMartins.jpg" />
+    <Content Include="JogadoresFotos\HelderNunes.jpg" />
+    <Content Include="JogadoresFotos\HenriqueMagalhaes.jpg" />
+    <Content Include="JogadoresFotos\HernaniDiniz.jpg" />
+    <Content Include="JogadoresFotos\HugoCosta.jpg" />
+    <Content Include="JogadoresFotos\HugoSantos.jpg" />
+    <Content Include="JogadoresFotos\IvoSilva.jpg" />
+    <Content Include="JogadoresFotos\JepiSelva.jpg" />
+    <Content Include="JogadoresFotos\JoaoAlmeida.jpg" />
+    <Content Include="JogadoresFotos\JoaoCandeias.jpg" />
+    <Content Include="JogadoresFotos\JoaoFerreira.jpg" />
+    <Content Include="JogadoresFotos\JoaoGuimaraes.jpg" />
+    <Content Include="JogadoresFotos\JoaoLima.jpg" />
+    <Content Include="JogadoresFotos\JoaoLomba.jpg" />
+    <Content Include="JogadoresFotos\JoaoPereira.jpg" />
+    <Content Include="JogadoresFotos\JoaoPinheiro.jpg" />
+    <Content Include="JogadoresFotos\JoaoPinto.jpg" />
+    <Content Include="JogadoresFotos\JoaoRodrigues.jpg" />
+    <Content Include="JogadoresFotos\JoaoSilva.jpg" />
+    <Content Include="JogadoresFotos\JoaoSouto.jpg" />
+    <Content Include="JogadoresFotos\Joka.jpg" />
+    <Content Include="JogadoresFotos\JordiAdroher.jpg" />
+    <Content Include="JogadoresFotos\JordiBargallo.jpg" />
+    <Content Include="JogadoresFotos\JordiBurgaya.jpg" />
+    <Content Include="JogadoresFotos\JorgeSilva.jpg" />
+    <Content Include="JogadoresFotos\JoseBernardo.jpg" />
+    <Content Include="JogadoresFotos\JoseGonsalves.jpg" />
+    <Content Include="JogadoresFotos\JoãoSardo.jpg" />
+    <Content Include="JogadoresFotos\JuanGarcia.jpg" />
+    <Content Include="JogadoresFotos\LeonardoPais.jpg" />
+    <Content Include="JogadoresFotos\LuisMelo.jpg" />
+    <Content Include="JogadoresFotos\LuisSilva.jpg" />
+    <Content Include="JogadoresFotos\LuisViana.jpg" />
+    <Content Include="JogadoresFotos\MarceloBento.jpg" />
+    <Content Include="JogadoresFotos\MarcioRodrigues.jpg" />
+    <Content Include="JogadoresFotos\MarcioRosa.jpg" />
+    <Content Include="JogadoresFotos\MarcoBarros.jpg" />
+    <Content Include="JogadoresFotos\MarcoGaspar.jpg" />
+    <Content Include="JogadoresFotos\MarioRodrigues.jpg" />
+    <Content Include="JogadoresFotos\MateoMolina.jpg" />
+    <Content Include="JogadoresFotos\MatiasPlatero.jpg" />
+    <Content Include="JogadoresFotos\Micha.jpg" />
+    <Content Include="JogadoresFotos\MiguelRocha.jpg" />
+    <Content Include="JogadoresFotos\MiguelVieira.jpg" />
+    <Content Include="JogadoresFotos\NelsonFilipe.jpg" />
+    <Content Include="JogadoresFotos\NelsonPereira.jpg" />
+    <Content Include="JogadoresFotos\NelsonRibeiro.jpg" />
+    <Content Include="JogadoresFotos\NunoAraujo.jpg" />
+    <Content Include="JogadoresFotos\NunoPereira.jpg" />
+    <Content Include="JogadoresFotos\NunoSantos.jpg" />
+    <Content Include="JogadoresFotos\PabloCancela.jpg" />
+    <Content Include="JogadoresFotos\PauloMatos.jpg" />
+    <Content Include="JogadoresFotos\PauloPassos.jpg" />
+    <Content Include="JogadoresFotos\PedroDelgado.jpg" />
+    <Content Include="JogadoresFotos\PedroGil.jpg" />
+    <Content Include="JogadoresFotos\PedroHenriques.jpg" />
+    <Content Include="JogadoresFotos\PedroMaia.jpg" />
+    <Content Include="JogadoresFotos\PedroMartins.jpg" />
+    <Content Include="JogadoresFotos\PedroMendes.jpg" />
+    <Content Include="JogadoresFotos\PedroMoreira.jpg" />
+    <Content Include="JogadoresFotos\PedroVaz.jpg" />
+    <Content Include="JogadoresFotos\Poka.jpg" />
+    <Content Include="JogadoresFotos\RafaCosta.jpg" />
+    <Content Include="JogadoresFotos\RicardoBarreiros.jpg" />
+    <Content Include="JogadoresFotos\RicardoCosta.jpg" />
+    <Content Include="JogadoresFotos\RicardoSilva.jpg" />
+    <Content Include="JogadoresFotos\RodolfoSobral.jpg" />
+    <Content Include="JogadoresFotos\RubenPereira.jpg" />
+    <Content Include="JogadoresFotos\RubenSilva.jpg" />
+    <Content Include="JogadoresFotos\RubenSousa.jpg" />
+    <Content Include="JogadoresFotos\RuiMendes.jpg" />
+    <Content Include="JogadoresFotos\RuiPereira.jpg" />
+    <Content Include="JogadoresFotos\SamuelSantos.jpg" />
+    <Content Include="JogadoresFotos\SergioDeJesus.jpg" />
+    <Content Include="JogadoresFotos\TelmoFernandes.jpg" />
+    <Content Include="JogadoresFotos\TelmoPinto.jpg" />
+    <Content Include="JogadoresFotos\TiagoFerraz.jpg" />
+    <Content Include="JogadoresFotos\TiagoGouveia.jpg" />
+    <Content Include="JogadoresFotos\TiagoLosna.jpg" />
+    <Content Include="JogadoresFotos\TiagoPereira.jpg" />
+    <Content Include="JogadoresFotos\TiagoPinheiro.jpg" />
+    <Content Include="JogadoresFotos\TiagoRafael.jpg" />
+    <Content Include="JogadoresFotos\TomasCastanheira.jpg" />
+    <Content Include="JogadoresFotos\TonBaliu.jpg" />
+    <Content Include="JogadoresFotos\ToniPerez.jpg" />
+    <Content Include="JogadoresFotos\ToSilva.jpg" />
+    <Content Include="JogadoresFotos\ValterNeves.jpg" />
+    <Content Include="JogadoresFotos\VascoLuis.jpg" />
+    <Content Include="JogadoresFotos\VitorHugo.jpg" />
+    <Content Include="JogadoresFotos\Xanoca.jpg" />
+    <Content Include="JogadoresFotos\XavierCardoso.jpg" />
+    <Content Include="JogadoresFotos\XavierPuigbi.jpg" />
+    <Content Include="JogadoresFotos\ZeBraga.jpg" />
+    <Content Include="JogadoresFotos\ZeDiogoMacedo.jpg" />
+    <Content Include="JogadoresFotos\ZePedro.jpg" />
+    <Content Include="JogadoresFotos\Ziga.jpg" />
+    <Content Include="NoticiasFotos\Noticia1.jpg" />
+    <Content Include="NoticiasFotos\Noticia2.jpg" />
+    <Content Include="NoticiasFotos\Noticia3.jpg" />
+    <Content Include="NoticiasFotos\Noticia4.jpg" />
+    <Content Include="NoticiasFotos\Noticia5.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -188,20 +394,21 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Jogadores\Create.cshtml" />
     <Content Include="Views\Jogadores\Delete.cshtml" />
     <Content Include="Views\Jogadores\Details.cshtml" />
@@ -212,11 +419,45 @@
     <Content Include="Views\Equipas\Details.cshtml" />
     <Content Include="Views\Equipas\Edit.cshtml" />
     <Content Include="Views\Equipas\Index.cshtml" />
-    <Content Include="Views\Torneios\Create.cshtml" />
-    <Content Include="Views\Torneios\Delete.cshtml" />
-    <Content Include="Views\Torneios\Details.cshtml" />
-    <Content Include="Views\Torneios\Edit.cshtml" />
-    <Content Include="Views\Torneios\Index.cshtml" />
+    <Content Include="Views\Noticias\Create.cshtml" />
+    <Content Include="Views\Noticias\Delete.cshtml" />
+    <Content Include="Views\Noticias\Details.cshtml" />
+    <Content Include="Views\Noticias\Edit.cshtml" />
+    <Content Include="Views\Noticias\Index.cshtml" />
+    <Content Include="Views\UsersAdmin\Index.cshtml" />
+    <Content Include="Views\UsersAdmin\Edit.cshtml" />
+    <Content Include="Views\UsersAdmin\Details.cshtml" />
+    <Content Include="Views\UsersAdmin\Delete.cshtml" />
+    <Content Include="Views\UsersAdmin\Create.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\RolesAdmin\Index.cshtml" />
+    <Content Include="Views\RolesAdmin\Edit.cshtml" />
+    <Content Include="Views\RolesAdmin\Details.cshtml" />
+    <Content Include="Views\RolesAdmin\Delete.cshtml" />
+    <Content Include="Views\RolesAdmin\Create.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\DisplayEmail.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

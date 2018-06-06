@@ -1,7 +1,7 @@
 ﻿@model HockeyPT.Models.Equipas
 
 @{
-    Layout = null;
+    ViewBag.Title = "DeleteEquipas";
 }
 
 <!DOCTYPE html>
@@ -16,41 +16,42 @@
     <div>
         <h4>Equipas</h4>
         <hr />
+        @* HTML Helper para apresentar mensagens de erro*@
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.Nome)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Nome)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Logotipo)
+                <a href="~/EquipasFotos/" target="_blank">
+                    <img src="~/EquipasFotos/" width="50" height="37" />
             </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Logotipo)
-            </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Cidade)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Cidade)
             </dd>
-    
+
         </dl>
-    
-        @using (Html.BeginForm()) {
-            @Html.AntiForgeryToken()
-    
-            <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "Index")
-            </div>
-        }
+
+        @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Apagar" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+}
     </div>
 </body>
 </html>

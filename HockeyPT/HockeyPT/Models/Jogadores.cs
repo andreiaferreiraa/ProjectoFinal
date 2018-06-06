@@ -19,6 +19,7 @@ namespace HockeyPT.Models
         public string Posicao { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         public DateTime DataNascimento { get; set; }
 
         public string Nacionalidade { get; set; }

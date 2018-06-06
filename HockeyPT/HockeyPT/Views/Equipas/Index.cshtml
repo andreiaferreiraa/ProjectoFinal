@@ -1,9 +1,10 @@
 ﻿@model IEnumerable<HockeyPT.Models.Equipas>
 
 @{
-    Layout = null;
+    ViewBag.Title = "Equipas";
 }
 
+<h1> Lista de Equipas </h1>
 <!DOCTYPE html>
 
 <html>
@@ -13,7 +14,7 @@
 </head>
 <body>
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Criar Nova Equipa", "Create")
     </p>
     <table class="table">
         <tr>
@@ -29,21 +30,23 @@
             <th></th>
         </tr>
     
-    @foreach (var item in Model) {
+    @foreach (var equipas in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Nome)
+                @Html.DisplayFor(modelItem => equipas.Nome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Logotipo)
+                <a href="~/EquipasFotos/@equipas.Logotipo" target="_blank">
+                    <img src="~/EquipasFotos/@equipas.Logotipo" width="55" height="70" />
+                </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Cidade)
+                @Html.DisplayFor(modelItem => equipas.Cidade)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+                @Html.ActionLink("Editar", "Edit", new { id= equipas.ID }) |
+                @Html.ActionLink("Detalhes", "Details", new { id= equipas.ID }) |
+                @Html.ActionLink("Apagar", "Delete", new { id= equipas.ID })
             </td>
         </tr>
     }

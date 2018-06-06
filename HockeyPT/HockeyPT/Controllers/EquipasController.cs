@@ -2,42 +2,57 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HockeyPT.Models;
+using IdentitySample.Models;
 
 namespace HockeyPT.Controllers
 {
     public class EquipasController : Controller
     {
-        private HockeyBD db = new HockeyBD();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Equipas
         public ActionResult Index()
         {
-            return View(db.Equipas.ToList());
+            var listaDeEquipas = db.Equipas.OrderBy(e => e.ID).ToList();
+            return View(listaDeEquipas);
         }
 
+        //*************************************DETAILS****************************************************************
         // GET: Equipas/Details/5
         public ActionResult Details(int? id)
         {
+            //caso o valor do id seja nulo
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //redirecciona para a pagina inicial
+                return RedirectToAction("Index");
+
             }
+            //vai procurar o ID da Equipa fornecido
             Equipas equipas = db.Equipas.Find(id);
+
+            //se a Equipa nao for encontrada
             if (equipas == null)
             {
-                return HttpNotFound();
+                //redirecciona para o Index
+                return RedirectToAction("Index");
             }
+
+            //envia para  a view os dados da Equipa 
             return View(equipas);
         }
 
+        //*****************************************************CREATE********************************************
         // GET: Equipas/Create
         public ActionResult Create()
         {
+
             return View();
         }
 
@@ -46,29 +61,93 @@ namespace HockeyPT.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,Logotipo,Cidade")] Equipas equipas)
+        public ActionResult Create([Bind(Include = "ID,Nome,Logotipo,Cidade")] Equipas equipas,
+                                    HttpPostedFileBase ficheiroLogotipo)
         {
-            if (ModelState.IsValid)
+
+            //determinar o ID do novo jogador
+            int novoID = 0;
+
+            //verifica se nao ha jogador nenhum na base de dados
+            if (db.Equipas.Count() == 0)
             {
-                db.Equipas.Add(equipas);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                novoID = 1;
             }
 
+            //caso haja, verifica qual é o ID maximo , e acrescenta lhe 1
+            else
+            {
+                novoID = db.Equipas.Max(e => e.ID) + 1;
+            }
+
+            //atribuição do novo ID à equipa
+            equipas.ID = novoID;
+
+            string nomeLogotipo = "Equipa_" + novoID + ".jpg";
+            // indica onde a imagem será guardada
+            string caminhoLogotipo = Path.Combine(Server.MapPath("~/EquipasFotos/"), nomeLogotipo);
+
+            //verifica se chega algum ficheiro ao servidor
+            if (ficheiroLogotipo != null)
+            {
+                //guarda o nome da imagem na base de dados
+                equipas.Logotipo = nomeLogotipo;
+            }
+            else
+            {
+                //nao ha imagem
+                ModelState.AddModelError("", "Não foi fornecido nenhum Logotipo da Equipa!"); // gera MSG de erro
+                // reenvia os dados da 'Equipa' para a View
+                return View(equipas);
+            }
+
+            //verifica se o ficheiro é mesmo uma fotografia
+
+
+
+            //confronta os dados fornecidos com o modelo, caso nao respeitem as regras do modelo, rejeita-os
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // adiciona na estrutura de dados, na memória do servidor, o objeto Equipas
+                    db.Equipas.Add(equipas);
+                    // faz 'commit' na BD
+                    db.SaveChanges();
+
+                    // guardar a imagem no disco rígido
+                    ficheiroLogotipo.SaveAs(caminhoLogotipo);
+
+                    // redireciona o utilizador para a página de início
+                    return RedirectToAction("Index");
+                }
+                catch (Exception)
+                {
+                    // gerar uma mensagem de erro para o utilizador
+                    ModelState.AddModelError("", "Ocorreu um erro não determinado na criação da novo Equipa...");
+                }
+            }
+            // se se chegar aqui, é pq aconteceu algum problema...
+            // devolve os dados do agente à View
             return View(equipas);
         }
 
+
+        //**************************************************************EDIT*******************************************
         // GET: Equipas/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
+
             }
             Equipas equipas = db.Equipas.Find(id);
             if (equipas == null)
             {
-                return HttpNotFound();
+                //return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(equipas);
         }
@@ -78,17 +157,44 @@ namespace HockeyPT.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Logotipo,Cidade")] Equipas equipas)
+        public ActionResult Edit([Bind(Include = "ID,Nome,Logotipo,Cidade")] Equipas equipa,
+                                 HttpPostedFileBase novoLogotipo)
         {
+            //variaveis auxiliares
+            string novoNome = "";
+            string nomeAntigo = "";
+
             if (ModelState.IsValid)
             {
-                db.Entry(equipas).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    if (novoLogotipo != null)
+                    {
+                        nomeAntigo = equipa.Logotipo;
+                        novoNome = "Equipa" + equipa.ID + DateTime.Now.ToString("_yyyyMMdd_hhmmss") + Path.GetExtension(novoLogotipo.FileName).ToLower(); ;
+                        equipa.Logotipo = novoNome;
+                        novoLogotipo.SaveAs(Path.Combine(Server.MapPath("~/EquipasFotos/"), novoNome));
+                    }
+
+                    db.Entry(equipa).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    if (novoLogotipo != null)
+                        System.IO.File.Delete(Path.Combine(Server.MapPath("~/EquipasFotos/"), nomeAntigo));
+
+                    return RedirectToAction("Index");
+                }
+                catch (Exception)
+                {
+                    // caso haja um erro deve ser enviada uma mensagem para o utilizador
+                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição dos dados do jogador {0}", equipa.Nome));
+                }
             }
-            return View(equipas);
+            return View(equipa);
         }
 
+
+        //**************************************************DELETE*********************************************************
         // GET: Equipas/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -104,6 +210,7 @@ namespace HockeyPT.Controllers
             return View(equipas);
         }
 
+
         // POST: Equipas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -115,6 +222,10 @@ namespace HockeyPT.Controllers
             return RedirectToAction("Index");
         }
 
+
+
+       
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -123,5 +234,9 @@ namespace HockeyPT.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }
+    
+
+

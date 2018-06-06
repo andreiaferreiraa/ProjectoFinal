@@ -1,9 +1,8 @@
 ﻿@model HockeyPT.Models.Equipas
 
 @{
-    Layout = null;
+    ViewBag.Title = "DetailsEquipas";
 }
-
 <!DOCTYPE html>
 
 <html>
@@ -19,32 +18,53 @@
             <dt>
                 @Html.DisplayNameFor(model => model.Nome)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Nome)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Logotipo)
             </dt>
-    
+
             <dd>
-                @Html.DisplayFor(model => model.Logotipo)
+                <a href="~/EquipasFotos/@Model.Logotipo" target="_blank">
+                    <img src="~/EquipasFotos/@Model.Logotipo" width="70" height="80" />
+                </a>
+
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Cidade)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Cidade)
             </dd>
-    
+
         </dl>
+        <div>
+            <p><b> Torneios Nacionais em que participam: </b></p>
+            @foreach (var torneios in Model.ListaDeTorneios.ToList())
+    {
+            <ul>
+                <li>
+                    @Html.DisplayFor(t => torneios.Nome)
+                </li>
+            </ul>
+}
+        </div>
+            
+        <div>
+            <h1>Plantel: </h1>
+            @foreach (var jogadores in Model.ListaDeJogadores.ToList()){
+            <img onclick="location.href='@Url.Action("Details","Jogadores", new { id = jogadores.ID })'" src="~/JogadoresFotos/@Html.DisplayFor(j=>jogadores.Fotografia)" width="260" height="409"/>
+             }
+        </div>
     </div>
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Voltar A Lista", "Index")
     </p>
 </body>
 </html>

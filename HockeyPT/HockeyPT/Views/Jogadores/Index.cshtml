@@ -1,9 +1,11 @@
 ﻿@model IEnumerable<HockeyPT.Models.Jogadores>
 
 @{
-    Layout = null;
+    ViewBag.Title = "Jogadores";
 }
 
+<h1> Lista de Jogadores </h1>
+                                                                                    
 <!DOCTYPE html>
 
 <html>
@@ -13,68 +15,37 @@
 </head>
 <body>
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Criar Novo Jogador", "Create")
     </p>
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Equipa.Nome)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Posicao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataNascimento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nacionalidade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Altura)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Peso)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Fotografia)
             </th>
-            <th></th>
+            
         </tr>
     
-    @foreach (var item in Model) {
+    @foreach (var jogadores in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Equipa.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Posicao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataNascimento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nacionalidade)
-            </td>
-            <td>
-                <p>@Html.DisplayFor(modelItem => item.Altura ) metros</p>
 
+            <td>
+                @Html.DisplayFor(modelItem => jogadores.Nome)
+            </td>
+            
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Fotografia)*@
+                
+                <a href="~/JogadoresFotos/@jogadores.Fotografia" target="_blank">
+                    <img src="~/JogadoresFotos/@jogadores.Fotografia" width="50" height="70"/>
+                </a>
             </td>
             <td>
-                <p>@Html.DisplayFor(modelItem => item.Peso) kilos</p> 
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fotografia)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+                @Html.ActionLink("Editar", "Edit", new { id = jogadores.ID }) |
+                @Html.ActionLink("Detalhes", "Details", new { id = jogadores.ID }) |
+                @Html.ActionLink("Apagar", "Delete", new { id = jogadores.ID })
             </td>
         </tr>
     }

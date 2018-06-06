@@ -1,0 +1,42 @@
+﻿@model IEnumerable<HockeyPT.Models.Noticias>
+
+@{
+    ViewBag.Title = "Noticias";
+}
+
+<h1> Lista de Noticias </h1>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    
+    @foreach (var item in Model) {
+        
+            <h1>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </h1>
+            
+            <div>
+                <a href="~/NoticiasFotos/@item.Fotografia" target="_blank">
+                    <img src="~/NoticiasFotos/@item.Fotografia" width="620" height="413" />
+                </a>
+            </div>
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            </p>
+        
+    }
+    
+    
+</body>
+</html>

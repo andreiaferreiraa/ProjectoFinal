@@ -1,0 +1,42 @@
+﻿@model HockeyPT.Models.Noticias
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Noticias</h4>
+        
+            <h1>
+                @Html.DisplayFor(model => model.Titulo)
+            </h1>
+            
+            <p>
+                @Html.DisplayFor(model => model.Data)
+            </p>
+            <p>
+                @Html.DisplayFor(model => model.Conteudo)
+            </p>
+     
+            <div>
+                <a href="~/NoticiasFotos/@Model.Fotografia" target="_blank">
+                    <img src="~/NoticiasFotos/@Model.Fotografia" width="620" height="413" />
+                </a>
+            </div>
+    
+        
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+        @Html.ActionLink("Voltar a Lista", "Index")
+    </p>
+</body>
+</html>
