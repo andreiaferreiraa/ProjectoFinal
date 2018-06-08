@@ -12,16 +12,15 @@ namespace HockeyPT.Models
         public Utilizadores()
         {
             ListaDeComentarios = new HashSet<Comentarios>();
+            ListaDeNoticias = new HashSet<Noticias>();
         }
 
         [Key]
         public int ID { get; set; }
 
         //atributos do utilizador
-        [StringLength(15)]
         public string Username { get; set; }
-
-        [StringLength(40)]
+        
         public string NomeCompleto { get; set; }
 
         public string Email { get; set; }
@@ -29,13 +28,10 @@ namespace HockeyPT.Models
         public string ContactoTelefonico { get; set; }
 
         public DateTime DataNascimento { get; set; }
-
-        [ForeignKey("Noticias")]
-        public int NoticiasFK {get; set;}
-        public virtual Noticias Noticias { get; set; }
         
         //completa o relacionamento de um utilizador com os comentarios a ele relacionados
         public virtual ICollection<Comentarios> ListaDeComentarios { get; set; }
+        public virtual ICollection<Noticias> ListaDeNoticias { get; set; }
 
     }
 }

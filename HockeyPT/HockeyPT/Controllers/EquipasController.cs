@@ -187,7 +187,7 @@ namespace HockeyPT.Controllers
                 catch (Exception)
                 {
                     // caso haja um erro deve ser enviada uma mensagem para o utilizador
-                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição dos dados do jogador {0}", equipa.Nome));
+                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição dos dados da noticia {0}", equipa.Nome));
                 }
             }
             return View(equipa);
@@ -200,12 +200,14 @@ namespace HockeyPT.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Equipas equipas = db.Equipas.Find(id);
             if (equipas == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
+                //return HttpNotFound();
             }
             return View(equipas);
         }
@@ -216,16 +218,30 @@ namespace HockeyPT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Equipas equipas = db.Equipas.Find(id);
-            db.Equipas.Remove(equipas);
-            db.SaveChanges();
+            Noticias noticia = db.Noticias.Find(id);
+
+            try
+            {
+                //remover da memoria
+                db.Noticias.Remove(noticia);
+                //commit na base de dados
+                db.SaveChanges();
+                //redirecionar para a pagina inicial
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                //gerar uma mensagem de erro, a ser apresentada pelo utilizador
+                ModelState.AddModelError("",
+                                         string.Format("Nao foi possivel remover a Equipa {0}, pois tem {1} Jogadores associados",
+                                         noticia.Titulo, noticia.ListaDeEquipas.Count));
+
+            }
+            
             return RedirectToAction("Index");
         }
 
-
-
-       
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -25,8 +25,13 @@ namespace HockeyPT.Models
         public DateTime Data { get; set; }
 
         public string Fotografia { get; set; }
+
+        [ForeignKey("Utilizador")]
+        public int UtilizadorPK { get; set; }
+        public virtual Utilizadores Utilizador { get; set; }
         
         public virtual ICollection<Equipas> ListaDeEquipas { get; set; }
+
         public virtual ICollection<Comentarios> ListaDeComentarios { get; set; }
     }
 }
