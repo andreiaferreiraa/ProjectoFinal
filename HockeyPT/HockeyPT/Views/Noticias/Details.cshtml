@@ -14,32 +14,76 @@
 <body>
     <div>
         <h4>Noticias</h4>
-        
-            <h1>
-                @Html.DisplayFor(model => model.Titulo)
-            </h1>
-            
+
+        <h1>
+            @Html.DisplayFor(model => model.Titulo)
+        </h1>
+
+        <p>
+            @Html.DisplayFor(model => model.Utilizador.NomeCompleto)
+        </p>
+        <p>
+            @Html.DisplayFor(model => model.Data)
+        </p>
+        <p>
+            @Html.DisplayFor(model => model.Conteudo)
+        </p>
+
+        <div>
+            <a href="~/NoticiasFotos/@Model.Fotografia" target="_blank">
+                <img src="~/NoticiasFotos/@Model.Fotografia" width="620" height="413" />
+            </a>
+        </div>
+
+
+        @if (User.IsInRole("Administrador") || User.IsInRole("Moderador"))
+        {
             <p>
-                @Html.DisplayFor(model => model.Utilizador.NomeCompleto)
+                @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = Model.ID })
             </p>
-            <p>
-                @Html.DisplayFor(model => model.Data)
-            </p>
-            <p>
-                @Html.DisplayFor(model => model.Conteudo)
-            </p>
-     
-            <div>
-                <a href="~/NoticiasFotos/@Model.Fotografia" target="_blank">
-                    <img src="~/NoticiasFotos/@Model.Fotografia" width="620" height="413" />
-                </a>
-            </div>
-    
-        
+        }
+
+        <div>
+            <p> Adicione um comentário</p>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => Model.ID)
+                @Html.TextArea("ComentarioBox", "", 3, 100, htmlAttributes: new { @placeholder = "Adicione um Comentário" })
+                <input type="submit" name="botaoComentario" value="Submit" />
+            }
+
+        </div>
+
+        <div>
+            <p>Comentários:</p>
+            @foreach (var comentario in Model.ListaDeComentarios)
+            {
+
+                <dt>
+                    @Html.DisplayFor(c => comentario.Utilizador.Username)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(c => comentario.Texto)
+                </dd>
+
+
+            }
+        </div>
+
+
+
+        <div>
+            <p>equipas:</p>
+            @foreach (var equipa in Model.ListaDeEquipas)
+            {
+                <a href="@Url.Action("Details","Equipas",new { id = equipa.ID })">@Html.DisplayFor(e => equipa.Nome)</a>
+            }
+        </div>
+
     </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-        @Html.ActionLink("Voltar a Lista", "Index")
-    </p>
+
 </body>
 </html>

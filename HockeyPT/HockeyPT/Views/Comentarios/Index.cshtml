@@ -1,0 +1,63 @@
+﻿@model IEnumerable<HockeyPT.Models.Comentarios>
+
+@{
+    ViewBag.Title="Index";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Lista de Comentários</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Texto)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Utilizador.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dataComentario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Noticia.ID)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Texto)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Utilizador.Username)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.dataComentario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Noticia.ID)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

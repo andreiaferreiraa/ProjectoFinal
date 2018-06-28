@@ -1,0 +1,6 @@
+﻿@model IEnumerable<HockeyPT.Models.Equipas>
+
+    @foreach (var equipa in Model)
+    {
+        <a href="@Url.Action("Details","Equipas",new { id = Html.DisplayFor(i => equipa.ID) })"><img style="height:40px;width:40px; margin:8px" src="~/EquipasFotos/@Html.DisplayFor(e=>equipa.Logotipo)" class=" img-rounded" /></a>
+    }

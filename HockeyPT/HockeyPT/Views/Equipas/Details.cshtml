@@ -63,8 +63,8 @@
         </div>
     </div>
     <p>
+
         @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-        @Html.ActionLink("Voltar A Lista", "Index")
-    </p>
+        <a href="@Url.Action("Index", "Home")">Voltar ao inicio</a>
 </body>
 </html>

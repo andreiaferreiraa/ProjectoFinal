@@ -47,7 +47,11 @@ namespace HockeyPT.Controllers
             //envia para  a view os dados da Equipa 
             return View(equipas);
         }
-
+        public ActionResult ListarEquipas()
+        {
+            var model = db.Equipas.ToList();
+            return PartialView(model);
+        }
         //*****************************************************CREATE********************************************
         // GET: Equipas/Create
         public ActionResult Create()

@@ -9,6 +9,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using HockeyPT.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace IdentitySample.Controllers
 {
@@ -19,7 +21,7 @@ namespace IdentitySample.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -147,12 +149,36 @@ namespace IdentitySample.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             if (ModelState.IsValid)
+
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var result2 = userManager.AddToRole(user.Id, "UtilizadorLogado");
+                    try
+                    {
+                        Utilizadores Utilizadores = new Utilizadores();
+                        Utilizadores = model.Utilizadores;
+                        Utilizadores.Username = user.UserName;
+                        Utilizadores.Email = user.Email;
+                        db.Utilizadores.Add(Utilizadores);
+                        db.SaveChanges();
+
+
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+
+
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
@@ -385,7 +411,7 @@ namespace IdentitySample.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Noticias");
         }
 
         //
@@ -422,7 +448,7 @@ namespace IdentitySample.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Noticias");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

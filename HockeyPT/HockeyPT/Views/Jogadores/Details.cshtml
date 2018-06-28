@@ -15,73 +15,80 @@
     <div>
         <h4>Jogadores</h4>
         <hr />
-            <a href="~/JogadoresFotos/@Model.Fotografia" target="_blank">
-                    <img src="~/JogadoresFotos/@Model.Fotografia" width="250" height="409" />
-                </a>
-            </div>
-        <dl class="dl-horizontal">
-            
-            <dt>
-                @Html.DisplayNameFor(model => model.Equipa.Nome)
-            </dt>
+        <a href="~/JogadoresFotos/@Model.Fotografia" target="_blank">
+            <img src="~/JogadoresFotos/@Model.Fotografia" width="250" height="409" />
+        </a>
+    </div>
+    <dl class="dl-horizontal">
 
-            <dd>
-                @Html.DisplayFor(model => model.Equipa.Nome)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipa.Nome)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Nome)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Equipa.Nome)
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Nome)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Posicao)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Posicao)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Posicao)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.DataNascimento)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Posicao)
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.DataNascimento)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DataNascimento)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Nacionalidade)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DataNascimento)
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Nacionalidade)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Nacionalidade)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Altura)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nacionalidade)
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Altura)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Altura)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Peso)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Altura)
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Peso)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Peso)
+        </dt>
 
-        </dl>
-    
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+        <dd>
+            @Html.DisplayFor(model => model.Peso)
+        </dd>
+
+    </dl>
+
+    @if (User.IsInRole("Administrador") || User.IsInRole("Moderador"))
+    {
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
+        </p>
+
+    }
+
+        <p>
+            <a href="@Url.Action("Details","Equipas",new { id = Model.EquipaPK })">Voltar ao inicio</a>
+        </p>
 </body>
 </html>

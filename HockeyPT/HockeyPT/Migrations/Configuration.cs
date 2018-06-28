@@ -215,9 +215,9 @@ namespace HockeyPT.Migrations
             //***************************************************************************************************************
             //adiciona UTILIZADORES
             var utilizadores = new List<Utilizadores>{
-                new Utilizadores {ID=1, Username="jcarloslopes3@hotmail.com", NomeCompleto="José Carlos Lopes", Email="jcarloslopes@hotmail.com", ContactoTelefonico="910352191", DataNascimento= new DateTime(1980,03,25)},
-                new Utilizadores {ID=2, Username="ananunesrib9@gmail.com", NomeCompleto="Ana Nunes Ribeiro", Email="ananunesrib@gmail.com", ContactoTelefonico="967892213", DataNascimento= new DateTime(1986,09,17)},
-                new Utilizadores {ID=3, Username="ralvesferreira3@hotmail.com", NomeCompleto="Ricardo Alves Ferreira", Email="ralvesferreira3@hotmail.com", ContactoTelefonico="912374562", DataNascimento= new DateTime(1979,10,09)},
+                new Utilizadores {ID=2, Username="jcarloslopes3@hotmail.com", NomeCompleto="José Carlos Lopes", Email="jcarloslopes@hotmail.com", ContactoTelefonico="910352191", DataNascimento= new DateTime(1980,03,25)},
+                new Utilizadores {ID=3, Username="ananunesrib9@gmail.com", NomeCompleto="Ana Nunes Ribeiro", Email="ananunesrib@gmail.com", ContactoTelefonico="967892213", DataNascimento= new DateTime(1986,09,17)},
+                new Utilizadores {ID=4, Username="ralvesferreira3@hotmail.com", NomeCompleto="Ricardo Alves Ferreira", Email="ralvesferreira3@hotmail.com", ContactoTelefonico="912374562", DataNascimento= new DateTime(1979,10,09)},
             };
             utilizadores.ForEach(uu => context.Utilizadores.AddOrUpdate(u => u.ID, uu));
             context.SaveChanges();
@@ -248,6 +248,20 @@ namespace HockeyPT.Migrations
                 "«Sinto que estou a crescer de dia para dia. Os métodos de trabalho aqui são muito bons, o que faz com que os jogadores evoluam muito. A nível de campeonato sinto que estou a fazer uma boa época, tenho ajudado sempre a equipa e vou continuar a fazê-lo até ao final», finalizou o jogador que tem também como objetivo tentar conquistar a Taça de Portugal, uma vez que a AD Valongo ainda está em prova, tendo encontro marcado com o SC Tomar nas meias-finais.", Data=new DateTime(2018,05,18), Fotografia="Noticia5.jpg", UtilizadorPK=2, ListaDeEquipas = new List<Equipas>{equipas[10]}},
             };
             noticias.ForEach(nn => context.Noticias.AddOrUpdate(n => n.ID, nn));
+            context.SaveChanges();
+
+            //**********************************************************************************************************************************************************************************************************************************************
+            //adiciona Comentarios
+            var comentario = new List<Comentarios>
+            {
+                new Comentarios {ID=1, Texto="Vai ser um jogo renhido!", dataComentario= new DateTime(2018,05,07), UtilizadorPK=3, NoticiaPK=1},
+                new Comentarios {ID=2, Texto="Este ano só no fim sabemos quem é campeão", dataComentario=new DateTime(2018,05,07), UtilizadorPK=2, NoticiaPK=2},
+                new Comentarios {ID=3, Texto="Grande Barcelos!!", dataComentario=new DateTime(2018,05,06), UtilizadorPK=3, NoticiaPK=3},
+                new Comentarios {ID=4, Texto="Muito Bem feito", dataComentario=new DateTime(2018,05,05), UtilizadorPK=3, NoticiaPK=4},
+                new Comentarios {ID=5, Texto="Assim é que é! lutar até ao fim pela melhor classificação possível!", dataComentario=new DateTime(2018,05,18), UtilizadorPK=4, NoticiaPK=5}
+
+            };
+            comentario.ForEach(cc => context.Comentarios.AddOrUpdate(c => c.ID, cc));
             context.SaveChanges();
 
             

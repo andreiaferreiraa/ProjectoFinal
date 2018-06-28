@@ -1,0 +1,58 @@
+﻿@model HockeyPT.Models.Comentarios
+
+@{
+    ViewBag.Title = "Details";  
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Comentarios</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Noticia.Titulo)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Noticia.Titulo)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Utilizador.Username)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Utilizador.Username)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Texto)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Texto)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.dataComentario)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.dataComentario)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
