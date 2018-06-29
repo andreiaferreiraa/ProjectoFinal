@@ -38,3 +38,15 @@ input[type="checkbox"].input-validation-error {
 
 }
 
+hr.estilo1 {
+    height: 10px;
+    border: 0;
+    box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+
+hr.estilo2 {
+    height: 10px;
+    border: 0;
+    box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+

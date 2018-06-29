@@ -302,7 +302,7 @@ namespace HockeyPT.Controllers
                var RemoveNoticia = cadaEquipas.ListaDeNoticias.Remove(noticias);
                
             }
-                
+            
                 db.Noticias.Remove(noticias);
                 db.SaveChanges();
                 return RedirectToAction("Index");

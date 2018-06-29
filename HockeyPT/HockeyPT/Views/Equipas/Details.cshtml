@@ -1,7 +1,7 @@
 ﻿@model HockeyPT.Models.Equipas
 
 @{
-    ViewBag.Title = "DetailsEquipas";
+    ViewBag.Title = "Details";
 }
 <!DOCTYPE html>
 
@@ -12,59 +12,63 @@
 </head>
 <body>
     <div>
-        <h4>Equipas</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Nome)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Nome)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Logotipo)
-            </dt>
-
-            <dd>
-                <a href="~/EquipasFotos/@Model.Logotipo" target="_blank">
-                    <img src="~/EquipasFotos/@Model.Logotipo" width="70" height="80" />
-                </a>
-
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Cidade)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Cidade)
-            </dd>
-
-        </dl>
-        <div>
-            <p><b> Torneios Nacionais em que participam: </b></p>
-            @foreach (var torneios in Model.ListaDeTorneios.ToList())
-    {
-            <ul>
-                <li>
-                    @Html.DisplayFor(t => torneios.Nome)
-                </li>
-            </ul>
-}
+        <div class="text-center">
+            <h1>@Html.DisplayFor(model => model.Nome) - @Html.DisplayFor(model => model.Cidade)</h1>
         </div>
-            
+        <div class="container">
+            <div class="row">
+                <hr class="estilo1">
+                <br>
+            </div>
+
+        </div>
+
+        <div class="text-center">
+            <img src="~/EquipasFotos/@Model.Logotipo" style="width:250px; height:250px; align-items:center" />
+        </div>
+
+
         <div>
+            <div>
+                <h3 style="font-family:;color:slategray"> Torneios Nacionais em que participa:</h3>
+                @foreach (var torneios in Model.ListaDeTorneios.ToList())
+                {
+                    <ul>
+                        <li>
+                            @Html.DisplayFor(t => torneios.Nome)
+                        </li>
+                    </ul>
+                }
+
+            </div>
+
             <h1>Plantel: </h1>
-            @foreach (var jogadores in Model.ListaDeJogadores.ToList()){
-            <img onclick="location.href='@Url.Action("Details","Jogadores", new { id = jogadores.ID })'" src="~/JogadoresFotos/@Html.DisplayFor(j=>jogadores.Fotografia)" width="260" height="409"/>
-             }
-        </div>
-    </div>
-    <p>
 
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-        <a href="@Url.Action("Index", "Home")">Voltar ao inicio</a>
-</body>
+            @foreach (var jogadores in Model.ListaDeJogadores.ToList())
+            {
+                <div>
+                    <div class="col-md-4">
+                        <div class="img-thumbnail" style="margin-bottom:8px">
+                            <img onclick="location.href='@Url.Action("Details","Jogadores", new { id = jogadores.ID })'" src="~/JogadoresFotos/@Html.DisplayFor(j=>jogadores.Fotografia)" width="260" height="409" />
+                            <div class="caption" style="height:30px">
+                                <p style="font-family: 'Arial';font-size:130%;color:black;text-align:center">@Html.DisplayFor(nome => jogadores.Nome)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+
+
+            </div>
+
+
+            @if (User.IsInRole("Administrador") || User.IsInRole("Moderador"))
+            {
+                <button type="button" class="btn btn-default" onclick=" location.href='@Url.Action("Create","Jogadores",new { EquipaFK = Model.ID })'">Adicionar um Jogador</button>
+            }
+
+            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Index", "Noticias", new { id = Model.ID })'"> Voltar ao Inicio </button>
+
+
+    </body>
 </html>

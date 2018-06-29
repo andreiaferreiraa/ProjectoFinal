@@ -254,7 +254,7 @@ namespace HockeyPT.Migrations
             //adiciona Comentarios
             var comentario = new List<Comentarios>
             {
-                new Comentarios {ID=1, Texto="Vai ser um jogo renhido!", dataComentario= new DateTime(2018,05,07), UtilizadorPK=3, NoticiaPK=1},
+                new Comentarios {ID=1, Texto="Vai ser um jogo renhido!", dataComentario= new DateTime(2018,05,07), UtilizadorPK=4, NoticiaPK=1},
                 new Comentarios {ID=2, Texto="Este ano só no fim sabemos quem é campeão", dataComentario=new DateTime(2018,05,07), UtilizadorPK=2, NoticiaPK=2},
                 new Comentarios {ID=3, Texto="Grande Barcelos!!", dataComentario=new DateTime(2018,05,06), UtilizadorPK=3, NoticiaPK=3},
                 new Comentarios {ID=4, Texto="Muito Bem feito", dataComentario=new DateTime(2018,05,05), UtilizadorPK=3, NoticiaPK=4},

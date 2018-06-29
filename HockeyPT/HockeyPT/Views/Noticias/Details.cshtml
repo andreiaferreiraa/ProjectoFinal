@@ -13,9 +13,7 @@
 </head>
 <body>
     <div>
-        <h4>Noticias</h4>
-
-        <h1>
+        <h1 style="margin-top:30px;font-weight:bold">
             @Html.DisplayFor(model => model.Titulo)
         </h1>
 
@@ -29,7 +27,7 @@
             @Html.DisplayFor(model => model.Conteudo)
         </p>
 
-        <div>
+        <div style="text-align:center">
             <a href="~/NoticiasFotos/@Model.Fotografia" target="_blank">
                 <img src="~/NoticiasFotos/@Model.Fotografia" width="620" height="413" />
             </a>
@@ -38,14 +36,14 @@
 
         @if (User.IsInRole("Administrador") || User.IsInRole("Moderador"))
         {
-            <p>
-                @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = Model.ID })
-            </p>
+        <div class="btn-group" role="group" style="margin-bottom:8px">
+            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Edit","Noticias",new { id = Model.ID })'">Editar</button>
+            <button type="button" class="btn btn-danger" onclick=" location.href='@Url.Action("Delete","Noticias", new { id = Model.ID })'">Apagar</button>
+        </div>
         }
 
-        <div>
-            <p> Adicione um comentário</p>
+        <div style="margin-top:20px">
+         
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
@@ -57,7 +55,10 @@
         </div>
 
         <div>
-            <p>Comentários:</p>
+            <div class="text-center" style="margin-top:20px">
+                <h1 style="color: cadetblue">Comentários:</h1>
+            </div>
+            <hr>
             @foreach (var comentario in Model.ListaDeComentarios)
             {
 
@@ -66,22 +67,19 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(c => comentario.Texto)
+                    @Html.DisplayFor(c => comentario.Texto) -
+                    @Html.DisplayFor(c => comentario.dataComentario) |
+                    @Html.ActionLink("Apagar", "Delete", new { id = comentario.ID }) 
                 </dd>
 
 
             }
         </div>
 
-
-
-        <div>
-            <p>equipas:</p>
-            @foreach (var equipa in Model.ListaDeEquipas)
-            {
-                <a href="@Url.Action("Details","Equipas",new { id = equipa.ID })">@Html.DisplayFor(e => equipa.Nome)</a>
-            }
+        <div style="margin-top:20px">
+            <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Index", "Noticias", new { id = Model.ID })'"> Voltar ao Inicio </button>
         </div>
+        
 
     </div>
 

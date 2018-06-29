@@ -18,9 +18,7 @@
 
     @if (User.IsInRole("Administrador") || User.IsInRole("Moderador"))
     {
-        <p>
-            @Html.ActionLink("Criar uma nova Noticia", "Create")
-        </p>
+    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Create", "Noticias")'">Criar uma nova noticia </button>
     }
 
     <br />
@@ -35,32 +33,19 @@
 
 
             <div class="col-md-4">
-                <div class="thumbnail">
+                <div class="thumbnail" style="background-color:black">
                     <a href="/Noticias/Details/@item.ID">
-
                         <img src="~/NoticiasFotos/@item.Fotografia" style="object-fit:cover; width:350px ; height:250px " />
                     </a>
                     <div class="caption" style="height:58px">
-                        @Html.DisplayFor(titulo => item.Titulo)
+                        <p style="font-family: 'Arial';font-size:130%;font-weight:bold;color:aliceblue" >@Html.DisplayFor(titulo => item.Titulo)</p>
                     </div>
-                </div>
-                
-                
-                @*<h2><a class="slider-tittle" href="~/Noticias/Details/@Html.DisplayFor(ID => item.ID)">@Html.DisplayFor(titulo => item.Titulo)</a></h2>*@
+                </div> 
             </div>
         }
     </div>
 
-    @*if (User.IsInRole("Administrador") || User.IsInRole("Moderador"))
-            {
-                <div>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Apagar", "Delete", new { id = item.ID })
-                </div>
-        }
-
-            @Html.ActionLink("Abrir", "Details", new { id = item.ID })
-    *@
+ 
 
 
 </body>

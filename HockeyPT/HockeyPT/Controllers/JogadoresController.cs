@@ -17,12 +17,13 @@ namespace HockeyPT.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Jogadores
+        [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             var listaDeJogadores = db.Jogadores.OrderBy(j => j.ID).ToList();
             return View(listaDeJogadores);
         }
-//***************************************************DETAILS*************************************************************
+        //***************************************************DETAILS*************************************************************
         // GET: Jogadores/Details/5
         /// <summary>
         /// Apresenta os detalhes de um jogador
@@ -51,12 +52,14 @@ namespace HockeyPT.Controllers
             //envia para a View os dados do Jogador
             return View(jogadores);
         }
-        
-//*************************************************************CREATE***************************************************
+
+        //*************************************************************CREATE***************************************************
         // GET: Jogadores/Create
-        public ActionResult Create()
+        [Authorize(Roles = "Administrador")]
+        public ActionResult Create(int EquipaFK)
         {
             ViewBag.EquipaPK = new SelectList(db.Equipas, "ID", "Nome");
+            Session["EquipaFK"] = EquipaFK;
             return View();
         }
 
@@ -66,11 +69,10 @@ namespace HockeyPT.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,Posicao,DataNascimento,Nacionalidade,Altura,Peso,Fotografia,EquipaPK")] Jogadores jogadores,
+        public ActionResult Create([Bind(Include = "Nome,Posicao,DataNascimento,Nacionalidade,Altura,Peso,Fotografia")] Jogadores jogadores,
                                     HttpPostedFileBase carregaFotografia){
             //determinar o ID do novo Jogador
             int novoIDJogador = 0;
-
             //determinar o numero de Jogadores na tabela
             //caso a tabela dos jogadores esteja vazia
             if (db.Jogadores.Count() == 0)
@@ -86,7 +88,8 @@ namespace HockeyPT.Controllers
             }
             //atribuição do novo ID ao jogador
             jogadores.ID = novoIDJogador;
-
+            //atribuiçao da EquipaFK ao jogador
+            jogadores.EquipaPK = (int)Session["EquipaFK"];
             string nomeFotografia = "Jogadores_" + novoIDJogador + ".jpg";
             string caminhoFotografia = Path.Combine(Server.MapPath("~/JogadoresFotos/"), nomeFotografia); // indica onde a imagem será guardada
 
@@ -133,6 +136,7 @@ namespace HockeyPT.Controllers
 
         //*****************************************************EDIT******************************************************
         // GET: Jogadores/Edit/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -191,10 +195,11 @@ namespace HockeyPT.Controllers
             return View(jogador);
         }
 
-    
-    
+
+
         //***********************************************************DELETE**********************************************
         // GET: Jogadores/Delete/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

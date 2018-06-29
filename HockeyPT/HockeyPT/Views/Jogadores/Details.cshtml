@@ -12,83 +12,83 @@
     <title>Details</title>
 </head>
 <body>
-    <div>
-        <h4>Jogadores</h4>
-        <hr />
+    <h3 style="font-family:Arial;margin-top:40px">@Html.DisplayFor(model => model.Nome)</h3>
+    <hr class="estilo2" />
+
+    <div style="display:flex">
         <a href="~/JogadoresFotos/@Model.Fotografia" target="_blank">
             <img src="~/JogadoresFotos/@Model.Fotografia" width="250" height="409" />
         </a>
+
+        <dl class="dl-horizontal" style="margin-top:150px">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Nome)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Posicao)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Posicao)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DataNascimento)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DataNascimento)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Nacionalidade)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Nacionalidade)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Altura)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Altura)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Peso)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Peso)
+            </dd>
+
+        </dl>
     </div>
-    <dl class="dl-horizontal">
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Equipa.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Equipa.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Posicao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Posicao)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DataNascimento)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataNascimento)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Nacionalidade)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nacionalidade)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Altura)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Altura)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Peso)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Peso)
-        </dd>
-
-    </dl>
 
     @if (User.IsInRole("Administrador") || User.IsInRole("Moderador"))
     {
-        <p>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
-        </p>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Edit","Jogadores",new { id = Model.ID })'">Editar</button>
+            <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete","Jogadores",new { id = Model.ID })'">Apagar</button>
+        </div>
+
 
     }
 
-        <p>
-            <a href="@Url.Action("Details","Equipas",new { id = Model.EquipaPK })">Voltar ao inicio</a>
-        </p>
+    <div style="margin-top:20px">
+        <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Details","Equipas", new { id = Model.EquipaPK })'"> Voltar ao Inicio </button>
+    </div>
+    
+
+
+
 </body>
 </html>

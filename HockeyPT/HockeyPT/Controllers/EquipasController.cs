@@ -17,6 +17,7 @@ namespace HockeyPT.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Equipas
+        [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             var listaDeEquipas = db.Equipas.OrderBy(e => e.ID).ToList();
@@ -25,6 +26,7 @@ namespace HockeyPT.Controllers
 
         //*************************************DETAILS****************************************************************
         // GET: Equipas/Details/5
+        
         public ActionResult Details(int? id)
         {
             //caso o valor do id seja nulo
@@ -54,6 +56,7 @@ namespace HockeyPT.Controllers
         }
         //*****************************************************CREATE********************************************
         // GET: Equipas/Create
+        [Authorize(Roles = "Administrador")]
         public ActionResult Create()
         {
 
@@ -139,6 +142,7 @@ namespace HockeyPT.Controllers
 
         //**************************************************************EDIT*******************************************
         // GET: Equipas/Edit/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -200,6 +204,7 @@ namespace HockeyPT.Controllers
 
         //**************************************************DELETE*********************************************************
         // GET: Equipas/Delete/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
