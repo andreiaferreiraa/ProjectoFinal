@@ -26,6 +26,9 @@ namespace HockeyPT.Models
 
         public string Fotografia { get; set; }
 
+        public Boolean IsVisible { get; set; }
+
+
         [ForeignKey("Utilizador")]
         public int UtilizadorPK { get; set; }
         public virtual Utilizadores Utilizador { get; set; }

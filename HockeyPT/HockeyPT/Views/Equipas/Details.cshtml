@@ -56,12 +56,11 @@
                         </div>
                     </div>
                 </div>
-                }
+            }
+</div>
+        </div>
 
-
-            </div>
-
-
+        <div style="margin-top:50px">
             @if (User.IsInRole("Administrador") || User.IsInRole("Moderador"))
             {
                 <button type="button" class="btn btn-default" onclick=" location.href='@Url.Action("Create","Jogadores",new { EquipaFK = Model.ID })'">Adicionar um Jogador</button>
@@ -69,6 +68,9 @@
 
             <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Index", "Noticias", new { id = Model.ID })'"> Voltar ao Inicio </button>
 
+        </div>
 
-    </body>
+
+
+</body>
 </html>

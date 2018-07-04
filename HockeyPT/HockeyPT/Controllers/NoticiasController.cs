@@ -51,7 +51,7 @@ namespace HockeyPT.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrador, UtilizadorLogado")]
+        [Authorize(Roles = "Administrador, Moderador, UtilizadorLogado")]
         public ActionResult Details(int id, string ComentarioBox)
         {
             Comentarios comentario = new Comentarios();
@@ -80,7 +80,7 @@ namespace HockeyPT.Controllers
         //**************************************CREATE***********************************************************
         // GET: Noticias/Create
 
-        
+        [Authorize(Roles = "Administrador, Moderador")]
         public ActionResult Create()
         {
             ViewBag.listaEquipas = db.Equipas.ToList();
@@ -110,12 +110,24 @@ namespace HockeyPT.Controllers
 
             string nomeFotografia = "Noticia" + idNovaNoticia + ".jpg";
             string caminhoFotografia = Path.Combine(Server.MapPath("~/NoticiasFotos/"), nomeFotografia); // indica onde a imagem será guardada
-            
+
+            var tipo = "";
+            tipo = ficheiroFotoNoticia.ContentType;
+
             //verificar se chega efetivamente um ficheiro ao servidor
             if (ficheiroFotoNoticia != null)
             {
-                //guardar o nome da imagem na base de dados
-                noticias.Fotografia = nomeFotografia;
+                //se chgeou, verficar se é uma fotografia
+                if(tipo=="imagem/jpeg" || tipo=="image/jpg" || tipo=="image/png" || tipo == "image.bmp")
+                {
+                    //guardar o nome da imagem na base de dados
+                    noticias.Fotografia = nomeFotografia;
+                }
+                else
+                {
+                    return RedirectToAction("Create");
+                }
+                
             }
             else
             {
@@ -171,6 +183,7 @@ namespace HockeyPT.Controllers
 
         //************************************************EDIT************************************************
         // GET: Noticias/Edit/5
+        [Authorize(Roles = "Administrador, Moderador")]
         public ActionResult Edit(int? id)
         {
             Session["id"] = id;
@@ -192,6 +205,7 @@ namespace HockeyPT.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador, Moderador")]
         public ActionResult Edit(FormCollection formulario,
                             HttpPostedFileBase carregaFotoNoticia)
         {
@@ -200,16 +214,31 @@ namespace HockeyPT.Controllers
             Noticias noticia = db.Noticias.Find((int)Session["id"]);
             noticia.Data = DateTime.Now;
 
+            var tipo = "";
+            tipo = carregaFotoNoticia.ContentType;
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    //se a imagem nao for nula
                     if (carregaFotoNoticia != null)
                     {
-                        nomeAntigo = noticia.Fotografia;
-                        novoNome="Noticia" + noticia.ID + DateTime.Now.ToString("_yyyyMMdd_hhmmss") + Path.GetExtension(carregaFotoNoticia.FileName).ToLower(); ;
-                        noticia.Fotografia = novoNome;
-                        carregaFotoNoticia.SaveAs(Path.Combine(Server.MapPath("~/NoticiasFotos/"), novoNome));
+                        //verificar se é mesmo uma imagem
+                        if(tipo == "image/jpeg" || tipo=="image/jpg" || tipo=="image/png" || tipo== "image/bmp")
+                        {
+                            nomeAntigo = noticia.Fotografia;
+                            novoNome = "Noticia" + noticia.ID + DateTime.Now.ToString("_yyyyMMdd_hhmmss") + Path.GetExtension(carregaFotoNoticia.FileName).ToLower(); ;
+                            noticia.Fotografia = novoNome;
+                            carregaFotoNoticia.SaveAs(Path.Combine(Server.MapPath("~/NoticiasFotos/"), novoNome));
+
+                        }
+                        //se não for uma imagem
+                        else
+                        {
+                            //redireciona para o "Edit"
+                            return RedirectToAction("Edit");
+                        }
                     }
                     //preencher a noticia com os valores do formulario
                     noticia.Titulo = formulario["Titulo"];
@@ -272,6 +301,7 @@ namespace HockeyPT.Controllers
         //***************************************************DELETE************************************************
 
         // GET: Noticias/Delete/5
+        [Authorize(Roles = "Administrador, Moderador")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -289,10 +319,12 @@ namespace HockeyPT.Controllers
         // POST: Equipas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador, Moderador")]
         public ActionResult DeleteConfirmed(int id)
         {
             //encontrar o id da noticia
             Noticias noticias = db.Noticias.Find(id);
+            noticias.IsVisible = false;
             //remover a noticia das noticias
             var noticiasEquipas = noticias.ListaDeEquipas.ToList();
 
@@ -302,9 +334,9 @@ namespace HockeyPT.Controllers
                var RemoveNoticia = cadaEquipas.ListaDeNoticias.Remove(noticias);
                
             }
-            
-                db.Noticias.Remove(noticias);
-                db.SaveChanges();
+
+            db.Entry(noticias).State = EntityState.Modified;
+            db.SaveChanges();
                 return RedirectToAction("Index");
         }
         

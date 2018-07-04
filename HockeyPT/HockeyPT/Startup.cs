@@ -61,7 +61,7 @@ namespace IdentitySample
             Utilizadores utilizador = new Utilizadores
             {
                 Username = user.Email,
-                ID = 1,
+                ID = 3,
                 NomeCompleto = "Andreia Ferreira",
                 DataNascimento = new DateTime(1997, 05, 18),
                 Email = user.Email,

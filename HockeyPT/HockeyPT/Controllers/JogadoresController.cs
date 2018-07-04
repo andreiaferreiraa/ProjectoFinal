@@ -30,6 +30,7 @@ namespace HockeyPT.Controllers
         /// </summary>
         /// <param name="id">apresenta a PK que identifica o Jogador</param>
         /// <returns></returns>
+        //[Authorize(Roles = "Administrador")]
         public ActionResult Details(int? id)
         {
             //protege a execução do método contra a não existência de valores nulos
@@ -69,6 +70,7 @@ namespace HockeyPT.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Create([Bind(Include = "Nome,Posicao,DataNascimento,Nacionalidade,Altura,Peso,Fotografia")] Jogadores jogadores,
                                     HttpPostedFileBase carregaFotografia){
             //determinar o ID do novo Jogador
@@ -159,12 +161,29 @@ namespace HockeyPT.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Edit([Bind(Include = "ID,Nome,Posicao,DataNascimento,Nacionalidade,Altura,Peso,Fotografia,EquipaPK")] Jogadores jogador,
                                  HttpPostedFileBase ficheiroFotografiaJogador)
         {
             //variaveis auxiliares
             string novoNome = "";
             string nomeAntigo = "";
+            DateTime dataAtual = DateTime.Now;
+
+            //try
+            //{
+                //caso a data de nascimento seja maior que a atual
+                if (jogador.DataNascimento >= dataAtual)
+                {
+                    ModelState.AddModelError("", "Erro na data de nascimento!");
+                    return View(jogador);
+               }
+            //}
+            //catch (Exception)
+            //{
+            //    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição dos dados do jogador {0}", jogador.Nome));
+            //}
+
 
             if (ModelState.IsValid)
             {
@@ -219,6 +238,7 @@ namespace HockeyPT.Controllers
         // POST: Jogadores/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult DeleteConfirmed(int id)
         {
             Jogadores jogadores = db.Jogadores.Find(id);

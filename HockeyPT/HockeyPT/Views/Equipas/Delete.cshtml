@@ -49,7 +49,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Apagar" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Index", "Noticias", new { id = Model.ID })'"> Voltar ao Inicio </button>
         </div>
 }
     </div>

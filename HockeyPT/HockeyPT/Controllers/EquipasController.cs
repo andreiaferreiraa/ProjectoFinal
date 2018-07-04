@@ -26,7 +26,7 @@ namespace HockeyPT.Controllers
 
         //*************************************DETAILS****************************************************************
         // GET: Equipas/Details/5
-        
+        //[Authorize(Roles = "Administrador")]
         public ActionResult Details(int? id)
         {
             //caso o valor do id seja nulo
@@ -68,6 +68,7 @@ namespace HockeyPT.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Create([Bind(Include = "ID,Nome,Logotipo,Cidade")] Equipas equipas,
                                     HttpPostedFileBase ficheiroLogotipo)
         {
@@ -165,6 +166,7 @@ namespace HockeyPT.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Edit([Bind(Include = "ID,Nome,Logotipo,Cidade")] Equipas equipa,
                                  HttpPostedFileBase novoLogotipo)
         {
@@ -225,6 +227,7 @@ namespace HockeyPT.Controllers
         // POST: Equipas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult DeleteConfirmed(int id)
         {
             Noticias noticia = db.Noticias.Find(id);

@@ -18,35 +18,33 @@
 
     @if (User.IsInRole("Administrador") || User.IsInRole("Moderador"))
     {
-    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Create", "Noticias")'">Criar uma nova noticia </button>
+        <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Create", "Noticias")'" style="margin-top:20px; margin-bottom:10px">Criar uma nova noticia </button>
     }
 
     <br />
 
     <div style="margin-bottom:8px">
-        <img src="~/ImagensFundo/ImagemFunco.jpg" style="width:100%; height:300px"/>
+        <img src="~/ImagensFundo/ImagemFunco.jpg" style="width:100%; height:300px" />
     </div>
 
     <div class="row">
         @foreach (var item in Model)
         {
 
-
-            <div class="col-md-4">
-                <div class="thumbnail" style="background-color:black">
-                    <a href="/Noticias/Details/@item.ID">
-                        <img src="~/NoticiasFotos/@item.Fotografia" style="object-fit:cover; width:350px ; height:250px " />
-                    </a>
-                    <div class="caption" style="height:58px">
-                        <p style="font-family: 'Arial';font-size:130%;font-weight:bold;color:aliceblue" >@Html.DisplayFor(titulo => item.Titulo)</p>
+            if (item.IsVisible)
+            {
+                <div class="col-md-4">
+                    <div class="thumbnail" style="background-color:black">
+                        <a href="/Noticias/Details/@item.ID">
+                            <img src="~/NoticiasFotos/@item.Fotografia" style="object-fit:cover; width:350px ; height:250px " />
+                        </a>
+                        <div class="caption" style="height:58px">
+                            <p style="font-family: 'Arial';font-size:130%;font-weight:bold;color:aliceblue">@Html.DisplayFor(titulo => item.Titulo)</p>
+                        </div>
                     </div>
-                </div> 
-            </div>
+                </div>
+            }
         }
     </div>
-
- 
-
-
 </body>
 </html>

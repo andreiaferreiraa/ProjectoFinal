@@ -34,22 +34,36 @@
         </div>
 
 
-        @if (User.IsInRole("Administrador") || User.IsInRole("Moderador"))
+        <h4 style="margin-top:8px">Equipas Referentes à Noticia:</h4>
+
+        @foreach (var foto in Model.ListaDeEquipas)
         {
-        <div class="btn-group" role="group" style="margin-bottom:8px">
-            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Edit","Noticias",new { id = Model.ID })'">Editar</button>
-            <button type="button" class="btn btn-danger" onclick=" location.href='@Url.Action("Delete","Noticias", new { id = Model.ID })'">Apagar</button>
-        </div>
+            <div class="col-md-3" style="margin-bottom:20px">
+                <div class="img-thumbnail">
+                    <img src="~/EquipasFotos/@Html.DisplayFor(f=>foto.Logotipo)" width="50" height="50" />
+                </div>
+            </div>
+
         }
 
-        <div style="margin-top:20px">
-         
+
+
+        @if (User.IsInRole("Administrador") || User.IsInRole("Moderador"))
+        {
+            <div class="btn-group" role="group" style="margin-bottom:8px">
+                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Edit","Noticias",new { id = Model.ID })'">Editar</button>
+                <button type="button" class="btn btn-danger" onclick=" location.href='@Url.Action("Delete","Noticias", new { id = Model.ID })'">Apagar</button>
+            </div>
+        }
+
+        <div style="margin-top:30px">
+
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(model => Model.ID)
-                @Html.TextArea("ComentarioBox", "", 3, 100, htmlAttributes: new { @placeholder = "Adicione um Comentário" })
-                <input type="submit" name="botaoComentario" value="Submit" />
+                @Html.TextArea("ComentarioBox", "", 4, 100, htmlAttributes: new { @placeholder = "Adicione um Comentário" })
+                <button type="submit" name=" botaoComentario" class="btn btn-primary "> Comentar </button>
             }
 
         </div>
@@ -68,8 +82,17 @@
 
                 <dd>
                     @Html.DisplayFor(c => comentario.Texto) -
-                    @Html.DisplayFor(c => comentario.dataComentario) |
-                    @Html.ActionLink("Apagar", "Delete", new { id = comentario.ID }) 
+                    @Html.DisplayFor(c => comentario.dataComentario)
+                    @if (User.Identity.Name.Equals(comentario.Utilizador.Username) || User.IsInRole("Administrador") || User.IsInRole("Moderator"))
+                    {
+                        <a href='@Url.Action("Delete","Comentarios",new { id = comentario.ID,NoticiaPK = comentario.NoticiaPK})'>
+                            <i class="glyphicon glyphicon-remove-sign" style="color:red;width:50px;height:50px"></i>
+                        </a>
+                        <a href='@Url.Action("Edit","Comentarios",new { id = comentario.ID, NoticiaPK = comentario.NoticiaPK})' class="glyphicon  glyphicon-pencil">
+                        </a>
+                    }
+
+
                 </dd>
 
 
@@ -79,7 +102,7 @@
         <div style="margin-top:20px">
             <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Index", "Noticias", new { id = Model.ID })'"> Voltar ao Inicio </button>
         </div>
-        
+
 
     </div>
 

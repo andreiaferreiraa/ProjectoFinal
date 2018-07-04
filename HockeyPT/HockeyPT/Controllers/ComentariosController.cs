@@ -14,10 +14,9 @@ namespace HockeyPT.Controllers
     public class ComentariosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        
+
         // GET: Comentarios
-        [Authorize(Roles = "Administrador")]
-        [Authorize(Roles = "UtilizadorLogado")]
+        [Authorize(Roles = "Administrador, Moderador, UtilizadorLogado")]
         public ActionResult Index()
         {
             var comentarios = db.Comentarios.Include(c => c.Noticia).Include(c => c.Utilizador);
@@ -26,6 +25,7 @@ namespace HockeyPT.Controllers
 
         //******************************************DETAILS*********************************************
         // GET: Comentarios/Details/5
+        [Authorize(Roles = "Administrador, Moderador")]
         public ActionResult Details(int? id)
         {
             //caso o valor do id seja nulo
@@ -56,9 +56,10 @@ namespace HockeyPT.Controllers
             return PartialView(model);
         }
 
-        
+
         //**************************************************CREATE******************************************************
         // GET: Comentarios/Create
+        [Authorize(Roles = "Administrador, Moderador, UtilizadorLogado")]
         public ActionResult Create()
         {
             ViewBag.NoticiaPK = new SelectList(db.Noticias, "ID", "Titulo");
@@ -73,20 +74,13 @@ namespace HockeyPT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Texto,UtilizadorPK,NoticiaPK")] Comentarios comentarios)
         {
-            //associar o comentario ao utilizador logado
-            //caso o utilizador meta comentario
-            //adicionar esse comentario a uma noticia
-            //adicionar esse comentario ao utilizador
-
-            
-           
             if (ModelState.IsValid)
             {
-           
-                    db.Comentarios.Add(comentarios);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                
+
+                db.Comentarios.Add(comentarios);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
             }
 
             ViewBag.NoticiaPK = new SelectList(db.Noticias, "ID", "Titulo", comentarios.NoticiaPK);
@@ -96,20 +90,27 @@ namespace HockeyPT.Controllers
 
         //************************************************************EDIT****************************************************
         // GET: Comentarios/Edit/5
+        
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Noticias");
             }
             Comentarios comentarios = db.Comentarios.Find(id);
             if (comentarios == null)
             {
-                return HttpNotFound();
+
+                return RedirectToAction("Index", "Noticias");
+            }
+            if (comentarios.Utilizador.Email.Equals(User.Identity.Name) || User.IsInRole("Administrador") || User.IsInRole("Moderador"))
+            {
+               
+                return View(comentarios);
             }
             ViewBag.NoticiaPK = new SelectList(db.Noticias, "ID", "Titulo", comentarios.NoticiaPK);
             ViewBag.UtilizadorPK = new SelectList(db.Utilizadores, "ID", "Username", comentarios.UtilizadorPK);
-            return View(comentarios);
+            return RedirectToAction("Index", "Noticias");
         }
 
         // POST: Comentarios/Edit/5
@@ -119,12 +120,25 @@ namespace HockeyPT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Texto,dataComentario,UtilizadorPK,NoticiaPK")] Comentarios comentarios)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(comentarios).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+            //so pode editar os comentarios o utilizador que o realizou
+            comentarios.UtilizadorPK =  db.Utilizadores.Where(u => u.Username.Equals(User.Identity.Name)).FirstOrDefault().ID;
+           
+            try{
+                if (ModelState.IsValid)
+                {
+                    comentarios.dataComentario = DateTime.Now;
+                    db.Entry(comentarios).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
             }
+            catch (Exception)
+            {
+                ModelState.AddModelError("","Impossivel editar o comentário!" );
+            }
+
+          
             ViewBag.NoticiaPK = new SelectList(db.Noticias, "ID", "Titulo", comentarios.NoticiaPK);
             ViewBag.UtilizadorPK = new SelectList(db.Utilizadores, "ID", "Username", comentarios.UtilizadorPK);
             return View(comentarios);
@@ -136,12 +150,12 @@ namespace HockeyPT.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
             }
             Comentarios comentarios = db.Comentarios.Find(id);
             if (comentarios == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(comentarios);
         }
@@ -152,10 +166,27 @@ namespace HockeyPT.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Comentarios comentarios = db.Comentarios.Find(id);
-            db.Comentarios.Remove(comentarios);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            try
+            {
+                //remover o jogador da memoria
+                db.Comentarios.Remove(comentarios);
+                //commit na base de dados
+                db.SaveChanges();
+                //redirecionar para a pagina inicial
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                //gerar uma mensagem de erro a ser apresentada ao utilizador
+                ModelState.AddModelError("", "Nao foi possivel remover ");
+            }
+
+            //reenvia os dados para a view
+            return View(comentarios);
         }
+
+  
 
         protected override void Dispose(bool disposing)
         {
