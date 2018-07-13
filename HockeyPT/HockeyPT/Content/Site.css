@@ -50,6 +50,16 @@ hr.estilo2 {
     box-shadow: 0 10px 10px -10px #8c8b8b inset;
 }
 
+
+.estilo3 {
+    height: 10px;
+    border: 0;
+    box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+
+
+
+
 .comentarios {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-transform: uppercase;

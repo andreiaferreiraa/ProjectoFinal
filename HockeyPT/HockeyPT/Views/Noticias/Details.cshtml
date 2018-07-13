@@ -56,7 +56,7 @@
                 <button type="button" class="btn btn-danger" onclick=" location.href='@Url.Action("Delete","Noticias", new { id = Model.ID })'">Apagar</button>
             </div>
         }
-      
+
 
 
         @if (User.IsInRole("UtilizadorLogado") || User.IsInRole("Administrador") || User.IsInRole("Moderador"))
@@ -74,41 +74,41 @@
             </div>
         }
 
-            <div>
-                <div class="text-center" style="margin-top:90px">
-                    <h1 class="comentarios" style="color: cadetblue">Comentários:</h1>
-                </div>
-
-                <hr>
-                <div class="alert alert-info" style="margin-top:20px">
-                    <strong>Nota:</strong> Para adicionar um comentário é necessário iniciar sessão!
-                </div>
-                @foreach (var comentario in Model.ListaDeComentarios)
-    {
-
-            <dt>
-                
-                @Html.DisplayFor(c => comentario.Utilizador.Username)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(c => comentario.Texto) -
-                @Html.DisplayFor(c => comentario.dataComentario)
-                @if (User.Identity.Name.Equals(comentario.Utilizador.Username) || User.IsInRole("Administrador") || User.IsInRole("Moderator"))
-    {
-            <a href='@Url.Action("Delete","Comentarios",new { id = comentario.ID,NoticiaPK = comentario.NoticiaPK})'>
-                <i class="glyphicon glyphicon-remove-sign" style="color:red;width:50px;height:50px"></i>
-            </a>
-            <a href='@Url.Action("Edit","Comentarios",new { id = comentario.ID, NoticiaPK = comentario.NoticiaPK})' class="glyphicon  glyphicon-pencil">
-            </a>
-}
-
-
-            </dd>
-
-
-}
+        <div>
+            <div class="text-center" style="margin-top:100px">
+                <h1 class="comentarios" style="color: cadetblue">Comentários:</h1>
             </div>
+
+            <hr class="estilo3">
+            <div class="alert alert-info" style="margin-top:20px; margin-right:690px">
+                <strong>Nota:</strong> Para adicionar um comentário é necessário iniciar sessão!
+            </div>
+            @foreach (var comentario in Model.ListaDeComentarios)
+            {
+
+                <dt>
+
+                    @Html.DisplayFor(c => comentario.Utilizador.Username)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(c => comentario.Texto) -
+                    @Html.DisplayFor(c => comentario.DataComentario)
+                    @if (User.Identity.Name.Equals(comentario.Utilizador.Username) || User.IsInRole("Administrador") || User.IsInRole("Moderator"))
+                    {
+                        <a href='@Url.Action("Delete","Comentarios",new { id = comentario.ID,NoticiaPK = comentario.NoticiaPK})'>
+                            <i class="glyphicon glyphicon-remove-sign" style="color:red;width:50px;height:50px"></i>
+                        </a>
+                        <a href='@Url.Action("Edit","Comentarios",new { id = comentario.ID, NoticiaPK = comentario.NoticiaPK})' class="glyphicon  glyphicon-pencil">
+                        </a>
+                    }
+
+
+                </dd>
+
+
+            }
+        </div>
 
         <div style="margin-top:20px">
             <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Index", "Noticias", new { id = Model.ID })'"> Voltar ao Inicio </button>

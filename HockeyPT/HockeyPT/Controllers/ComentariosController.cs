@@ -50,13 +50,6 @@ namespace HockeyPT.Controllers
             return View(comentarios);
         }
 
-        public ActionResult ListaComentarios()
-        {
-            var model = db.Comentarios.ToList();
-            return PartialView(model);
-        }
-
-
         //**************************************************CREATE******************************************************
         // GET: Comentarios/Create
         [Authorize(Roles = "Administrador, Moderador, UtilizadorLogado")]
@@ -118,7 +111,7 @@ namespace HockeyPT.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Texto,dataComentario,UtilizadorPK,NoticiaPK")] Comentarios comentarios)
+        public ActionResult Edit([Bind(Include = "ID,Texto,DataComentario,UtilizadorPK,NoticiaPK")] Comentarios comentarios)
         {
             //so pode editar os comentarios o utilizador que o realizou
             comentarios.UtilizadorPK =  db.Utilizadores.Where(u => u.Username.Equals(User.Identity.Name)).FirstOrDefault().ID;
@@ -126,7 +119,7 @@ namespace HockeyPT.Controllers
             try{
                 if (ModelState.IsValid)
                 {
-                    comentarios.dataComentario = DateTime.Now;
+                    comentarios.DataComentario = DateTime.Now;
                     db.Entry(comentarios).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");

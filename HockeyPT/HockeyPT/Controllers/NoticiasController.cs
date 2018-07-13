@@ -55,7 +55,7 @@ namespace HockeyPT.Controllers
         public ActionResult Details(int id, string ComentarioBox)
         {
             Comentarios comentario = new Comentarios();
-            comentario.dataComentario = DateTime.Now;
+            comentario.DataComentario = DateTime.Now;
             comentario.NoticiaPK = id;
             comentario.Texto = ComentarioBox;
             //permite ir buscar o id do utilizador que esta logado e que faz o comentario

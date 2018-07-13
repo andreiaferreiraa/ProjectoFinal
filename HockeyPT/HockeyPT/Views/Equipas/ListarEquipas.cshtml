@@ -2,5 +2,5 @@
 
     @foreach (var equipa in Model)
     {
-        <a href="@Url.Action("Details","Equipas",new { id = Html.DisplayFor(i => equipa.ID) })"><img style="height:40px;width:40px; margin:5px" src="~/EquipasFotos/@Html.DisplayFor(e=>equipa.Logotipo)" class=" img-rounded" /></a>
+        <a href="@Url.Action("Details","Equipas",new { id = Html.DisplayFor(i => equipa.ID) })"><img style="height:40px;width:40px; margin:4px" src="~/EquipasFotos/@Html.DisplayFor(e=>equipa.Logotipo)" class=" img-rounded" /></a>
     }
