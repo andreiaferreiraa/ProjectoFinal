@@ -113,19 +113,20 @@ namespace HockeyPT.Controllers
 
             var tipo = "";
             tipo = ficheiroFotoNoticia.ContentType;
+            
 
             //verificar se chega efetivamente um ficheiro ao servidor
             if (ficheiroFotoNoticia != null)
             {
                 //se chgeou, verficar se é uma fotografia
-                if(tipo=="imagem/jpeg" || tipo=="image/jpg" || tipo=="image/png" || tipo == "image.bmp")
+                if (tipo == "image/jpeg" || tipo == "image/jpg" || tipo == "image/png" || tipo == "image/bmp")
                 {
                     //guardar o nome da imagem na base de dados
                     noticias.Fotografia = nomeFotografia;
                 }
                 else
                 {
-                    return RedirectToAction("Create");
+                    ModelState.AddModelError("", "Não foi fornecida nenhuma imagem"); //gera uma mensagem de erro
                 }
                 
             }
@@ -151,7 +152,7 @@ namespace HockeyPT.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Não foi fornecida nenhuma imagem");
+                ModelState.AddModelError("", "Não foi fornecida nenhuma Equipa!");
                 ViewBag.listaEquipas = db.Equipas.ToList();
                 return View(noticias);
             }
