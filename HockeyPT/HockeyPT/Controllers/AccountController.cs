@@ -20,7 +20,7 @@ namespace IdentitySample.Controllers
         public AccountController()
         {
         }
-
+        private ApplicationDbContext db = new ApplicationDbContext();
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
@@ -79,6 +79,7 @@ namespace IdentitySample.Controllers
             {
 
                 case SignInStatus.Success:
+                    Session["UtilizadorID"] = db.Utilizadores.Where(u => u.Username.Equals(model.Email)).FirstOrDefault().ID;
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

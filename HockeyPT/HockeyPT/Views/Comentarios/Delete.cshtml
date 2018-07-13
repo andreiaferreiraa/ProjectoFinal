@@ -12,46 +12,29 @@
     <title>Delete</title>
 </head>
 <body>
-    <h3>Tem a certeza que pretende eliminar o comentário?</h3>
+    <h3 style="color:brown">Tem a certeza que pretende eliminar o comentário?</h3>
     <div>
-        <hr />
-        <dl class="dl-horizontal">
-            
-            <dt>
-                Utilizador:
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Utilizador.Username)
-            </dd>
-    
-            <dt>
-               Comentário:
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Texto)
-            </dd>
-    
-            <dt>
-                Data/Hora: 
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.DataComentario)
-            </dd>
-    
-        </dl>
-    
-        @using (Html.BeginForm()) {
-            @Html.AntiForgeryToken()
-    
+        <hr/>
+        <div style="margin-left:30px">
+            <h4>Utilizador:</h4>
+            <p>@Html.DisplayFor(model => model.Utilizador.Username)</p>
+            <h4>Comentário:</h4>
+            <p>@Html.DisplayFor(model => model.Texto)</p>
+            <h4>Data:</h4>
+            <p> @Html.DisplayFor(model => model.DataComentario)</p>
+        </div>
+        
+        
+        @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
         <div class="form-actions no-color">
-            <button type="submit" class="btn btn-danger" onclick="location.href='@Url.Action("Index", "Comentarios", new { id = Model.ID })'">Apagar</button>
+            <button type="submit" class="btn btn-danger" onclick="location.href='@Url.Action("Details", "Noticias", new { id = Model.NoticiaPK })'">Apagar</button>
             <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Details", "Noticias", new { id = Model.NoticiaPK })'">Voltar atrás</button>
 
         </div>
-        }
+}
     </div>
 </body>
 </html>

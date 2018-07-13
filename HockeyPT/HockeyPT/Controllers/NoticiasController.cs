@@ -9,7 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using HockeyPT.Models;
 using IdentitySample.Models;
-
+using PagedList;
+using PagedList.Mvc;
 namespace HockeyPT.Controllers
 {
     
@@ -19,10 +20,11 @@ namespace HockeyPT.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Noticias
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            IEnumerable<Noticias> listaDeNoticias = db.Noticias.OrderBy(n => n.ID).ToList();
-            return View(listaDeNoticias);
+            var pageNumber = page ?? 1;
+            var pageSize = 6;
+            return View(db.Noticias.OrderByDescending(x=>x.ID).ToPagedList(pageNumber,pageSize));
 
         }
         //******************************************DETAILS*******************************************************

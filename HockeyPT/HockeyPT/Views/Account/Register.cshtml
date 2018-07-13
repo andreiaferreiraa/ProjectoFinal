@@ -4,61 +4,105 @@
 }
 
 <h2>@ViewBag.Title!</h2>
+<h4>Criar uma nova conta</h4>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Criar uma nova conta</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
+
+
+
+<form>
+    <div class="input-group" style="margin-bottom:5px">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder="Email"} })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input id="password" type="password" class="form-control" name="password" placeholder="Password">
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input id="password" type="password" class="form-control" name="password" placeholder="Confirme a Password">
     </div>
 
-    <hr />
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Utilizadores.NomeCompleto, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Utilizadores.NomeCompleto, new { @class = "form-control" })
-        </div>
+    <div class="input-group">
+        <span class="input-group-addon">Nome Completo</span>
+        <input id="msg" type="text" class="form-control" name="msg" placeholder="Nome Completo">
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Utilizadores.ContactoTelefonico, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Utilizadores.ContactoTelefonico, new { @class = "form-control" })
-        </div>
+    <div class="input-group">
+        <span class="input-group-addon">Contacto Telefónico</span>
+        <input id="msg" type="text" class="form-control" name="msg" placeholder="Contacto Telefónico">
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Utilizadores.DataNascimento, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.EditorFor(m => m.Utilizadores.DataNascimento, new { @class = "form-control" })
-        </div>
+    <div>
+        <input type="date" id="start" name="trip"
+               value="yyyy-MM-DD"
+               max=@DateTime.Now />
     </div>
-
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-info" value="Registar" />
         </div>
     </div>
-    
-}
+
+
+
+
+</form>
+
+
+@*@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4>Criar uma nova conta</h4>
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Utilizadores.NomeCompleto, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Utilizadores.NomeCompleto, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Utilizadores.ContactoTelefonico, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Utilizadores.ContactoTelefonico, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Utilizadores.DataNascimento, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.Utilizadores.DataNascimento, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-info" value="Registar" />
+            </div>
+        </div>
+
+    }*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

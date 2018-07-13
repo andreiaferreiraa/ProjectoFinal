@@ -47,7 +47,7 @@ namespace HockeyPT.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Username,NomeCompleto,Email,ContactoTelefonico,DataNascimento")] Utilizadores utilizadores)
+        public ActionResult Create([Bind(Include = "ID,Username, NomeCompleto, Apelido,Email,ContactoTelefonico,DataNascimento")] Utilizadores utilizadores)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace HockeyPT.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Username,NomeCompleto,Email,ContactoTelefonico,DataNascimento")] Utilizadores utilizadores)
+        public ActionResult Edit([Bind(Include = "ID,Username,NomeCompleto, Email,ContactoTelefonico,DataNascimento")] Utilizadores utilizadores)
         {
             if (ModelState.IsValid)
             {

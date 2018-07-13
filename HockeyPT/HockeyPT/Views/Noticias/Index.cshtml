@@ -1,5 +1,8 @@
-﻿@model IEnumerable<HockeyPT.Models.Noticias>
-
+﻿
+@using HockeyPT.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<HockeyPT.Models.Noticias>
 @{
     ViewBag.Title = "Noticias";
 }
@@ -16,16 +19,15 @@
 </head>
 <body>
 
+    <br />
+    <div style="margin-bottom:8px">
+        <img src="~/ImagensFundo/ImagemFunco.jpg" style="width:100%; height:300px" />
+    </div>
+
     @if (User.IsInRole("Administrador") || User.IsInRole("Moderador"))
     {
         <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Create", "Noticias")'" style="margin-top:20px; margin-bottom:10px">Criar uma nova noticia </button>
     }
-
-    <br />
-
-    <div style="margin-bottom:8px">
-        <img src="~/ImagensFundo/ImagemFunco.jpg" style="width:100%; height:300px" />
-    </div>
 
     <div class="row">
         @foreach (var item in Model)
@@ -34,9 +36,9 @@
             if (item.IsVisible)
             {
                 <div class="col-md-4">
-                    <div class="thumbnail" style="background-color:black">
+                    <div class="thumbnail" style="background-color:black; margin:10px">
                         <a href="/Noticias/Details/@item.ID">
-                            <img src="~/NoticiasFotos/@item.Fotografia" style="object-fit:cover; width:350px ; height:250px " />
+                            <img src="~/NoticiasFotos/@item.Fotografia" style="object-fit:cover; width:330px ; height:250px" />
                         </a>
                         <div class="caption" style="height:70px">
                             <p style="font-family:'Roboto,sans-serif'; font-size:80%;color:aliceblue; margin-bottom:0px">@Html.DisplayFor(titulo => item.Data)</p>
@@ -47,5 +49,8 @@
             }
         }
     </div>
+    <br />
+    Página: @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
 </body>
 </html>
