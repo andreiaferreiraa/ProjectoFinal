@@ -28,6 +28,8 @@ namespace HockeyPT.Models
         public string ContactoTelefonico { get; set; }
 
         public DateTime DataNascimento { get; set; }
+
+        public string Foto { get; set; }
         
         //completa o relacionamento de um utilizador com os comentarios a ele relacionados
         public virtual ICollection<Comentarios> ListaDeComentarios { get; set; }
