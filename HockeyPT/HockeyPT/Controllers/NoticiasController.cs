@@ -92,12 +92,12 @@ namespace HockeyPT.Controllers
         // POST: Noticias/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Titulo,Conteudo,Fotografia")] Noticias noticias,
+        public ActionResult Create([Bind(Include = "Titulo,Conteudo,Fotografia")] Noticias noticias,
                             HttpPostedFileBase ficheiroFotoNoticia, 
                             string[] checkBoxEquipas)
         {
             var idNovaNoticia = 0;
-
+            ViewBag.listaEquipas = db.Equipas.ToList();
             if (db.Noticias.Count() == 0)
             {
                 idNovaNoticia = 1;
@@ -110,37 +110,34 @@ namespace HockeyPT.Controllers
 
             noticias.Data = DateTime.Now;
 
-            string nomeFotografia = "Noticia" + idNovaNoticia + ".jpg";
-            string caminhoFotografia = Path.Combine(Server.MapPath("~/NoticiasFotos/"), nomeFotografia); // indica onde a imagem será guardada
+            string nomeCapa = "Noticia" + noticias.ID + ".jpg";
+            string caminhoFotografia = "";
 
-            var tipo = "";
-            tipo = ficheiroFotoNoticia.ContentType;
-            
 
             //verificar se chega efetivamente um ficheiro ao servidor
-            if (ficheiroFotoNoticia != null)
+            if(ficheiroFotoNoticia != null)
             {
-                //se chgeou, verficar se é uma fotografia
-                if (tipo == "image/jpeg" || tipo == "image/jpg" || tipo == "image/png" || tipo == "image/bmp")
+                //verifica se o ficheiro é uma imagem
+                if (ficheiroFotoNoticia.ContentType.Contains("image"))
                 {
-                    //guardar o nome da imagem na base de dados
-                    noticias.Fotografia = nomeFotografia;
+                    //definir o nome da foto
+                    noticias.Fotografia = nomeCapa;
+                    //guardar na variavel auxiliar o caminho para onde guardar a imagem
+                    caminhoFotografia = Path.Combine(Server.MapPath("~/NoticiasFotos/"), nomeCapa);
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Não foi fornecida nenhuma imagem"); //gera uma mensagem de erro
-                }
-                
+
             }
+            //não foi inserido nenhum ficheiro 
             else
             {
-                //se nao ha imagem
-                ModelState.AddModelError("", "Não foi fornecida nenhuma imagem"); //gera uma mensagem de erro
-                //reenvia os dados para a view
+                //gera mensagem de erro
+                ModelState.AddModelError("", "Não foi inserida uma imagem");
+                //redirecionar o utilizador para a View
                 return View(noticias);
             }
+            
 
-            //verificar a lista de jogadores
+            //verificar a lista de equipas
             if (checkBoxEquipas != null)
             {
                 for(var i=0; i < checkBoxEquipas.Length; i++)
@@ -158,13 +155,13 @@ namespace HockeyPT.Controllers
                 ViewBag.listaEquipas = db.Equipas.ToList();
                 return View(noticias);
             }
-
+            noticias.UtilizadorPK = db.Utilizadores.Where(cc => cc.Username.Equals(User.Identity.Name)).FirstOrDefault().ID;
+            noticias.IsVisible = true;
             //ModelSatete.IsValid -> confronta os dados fornecidos com o modelo
             //se nao respeitar as regra dos modelo, rejeita os dados
-            if (ModelState.IsValid)
-            {
-                try
-                {
+            try {
+                if (ModelState.IsValid) {
+
                     //adiciona na estrutura de dados, na memoria do servidor, o objeto Jogadores
                     db.Noticias.Add(noticias);
                     //faz commit na base de dados
@@ -174,13 +171,15 @@ namespace HockeyPT.Controllers
                     //redireciona o utilizador para a pagina inicial
                     return RedirectToAction("Index");
                 }
-                catch (Exception)
-                {
-                    //gera uma mensagem de erro para o utilizador
-                    ModelState.AddModelError("", "Ocorreu um erro na criação de uma noticia ");
-                }
             }
-            ViewBag.listaEquipas = db.Equipas.ToList();
+            catch (Exception e)
+            {
+                //gera uma mensagem de erro para o utilizador
+                ModelState.AddModelError("", "Ocorreu um erro na criação de uma noticia ");
+                return RedirectToAction("Index");
+            }
+            
+            //ViewBag.listaEquipas = db.Equipas.ToList();
             return View(noticias);
         }
 
@@ -243,6 +242,7 @@ namespace HockeyPT.Controllers
                             return RedirectToAction("Edit");
                         }
                     }
+                    else { }
                     //preencher a noticia com os valores do formulario
                     noticia.Titulo = formulario["Titulo"];
                     noticia.Conteudo = formulario["Conteudo"];

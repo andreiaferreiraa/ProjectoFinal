@@ -12,86 +12,21 @@
     <title>Delete</title>
 </head>
 <body>
-    
+
     <div>
-        <h3>Tem a certeza que pretende eliminar o comentário?</h3>
+        <h3 style="color:brown">Tem a certeza que pretende eliminar o jogador?</h3>
         <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Equipa.Nome)
-            </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Equipa.Nome)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Nome)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Nome)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Posicao)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Posicao)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DataNascimento)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DataNascimento)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Nacionalidade)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Nacionalidade)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Altura)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Altura)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Peso)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Peso)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Fotografia)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Fotografia)
-            </dd>
-
-        </dl>
 
         @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+        {
+            @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Apagar" class="btn btn-danger" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-}
+            <div class="form-actions no-color">
+                <input type="submit" value="Apagar" class="btn btn-danger" /> |
+                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Detail", "Equipas", new { id = Model.EquipaPK })'"> Cancelar </button>
+            </div>
+        }
     </div>
 </body>
 </html>

@@ -22,7 +22,7 @@ namespace HockeyPT.Models
 
         public string Conteudo { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime Data { get; set; }
 
         public string Fotografia { get; set; }

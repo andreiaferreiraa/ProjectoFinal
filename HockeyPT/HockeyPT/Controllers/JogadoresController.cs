@@ -249,7 +249,7 @@ namespace HockeyPT.Controllers
                 //commit na base de dados
                 db.SaveChanges();
                 //redirecionar para a pagina inicial
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Equipas", new { id = jogadores.EquipaPK });
             }
             catch (Exception)
             {

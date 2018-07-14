@@ -37,12 +37,10 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Conteudo, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @using (Html.BeginForm())
-                    {
-                        @Html.AntiForgeryToken()
+                   
                         @Html.HiddenFor(model => Model.ID)
-                        @Html.TextArea("ConteudoBox", "", 4, 100, htmlAttributes: new { @placeholder = "Contéudo da Notícia" })
-                    }
+                        @Html.TextAreaFor(model =>model.Conteudo, htmlAttributes: new {@placeholder ="Conteudo da noticia", @style= "height:250px; width:640px;" })
+                    
                 </div>
             </div>
 
@@ -58,7 +56,7 @@
             </div>
             <div class="form-group" style="margin-right:10px">
 
-                <div class="col-md-2">
+                <div class="col-md-12">
                     
                     @foreach (Equipas equipa in ViewBag.listaEquipas)
                     {
