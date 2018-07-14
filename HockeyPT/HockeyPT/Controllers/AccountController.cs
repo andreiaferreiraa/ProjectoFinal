@@ -79,7 +79,7 @@ namespace IdentitySample.Controllers
             {
 
                 case SignInStatus.Success:
-                    //Session["UtilizadorID"] = db.Utilizadores.Where(u => u.Username.Equals(model.Email)).FirstOrDefault().ID;
+                    Session["UtilizadorID"] = db.Utilizadores.Where(c => c.Username.Equals(model.Email)).FirstOrDefault().ID;
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -87,7 +87,7 @@ namespace IdentitySample.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Tentativa de Login incorreta");
                     return View(model);
             }
         }

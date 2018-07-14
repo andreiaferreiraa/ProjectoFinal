@@ -15,106 +15,106 @@
 
     @if (User.IsInRole("Administrador") || User.IsInRole("Moderador"))
     {
-        <div style="margin-bottom:8px; margin-top:10px" >
+        <div style="margin-bottom:8px; margin-top:10px">
             <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Edit","Noticias",new { id = Model.ID })'">Editar</button>
             <button type="button" class="btn btn-danger" onclick=" location.href='@Url.Action("Delete","Noticias", new { id = Model.ID })'">Apagar</button>
         </div>
     }
 
+    <div>
+        <h1 style="margin-top:30px;font-weight:bold">
+            @Html.DisplayFor(model => model.Titulo)
+        </h1>
+
+        <p>
+            @Html.DisplayFor(model => model.Utilizador.NomeCompleto)
+        </p>
+
+
+        <p>
+            @Html.DisplayFor(model => model.Data)
+        </p>
+        <p>
+            @Html.DisplayFor(model => model.Conteudo)
+        </p>
+
+        <div style="text-align:center">
+            <a href="~/NoticiasFotos/@Model.Fotografia" target="_blank">
+                <img src="~/NoticiasFotos/@Model.Fotografia" width="620" height="413" />
+            </a>
+        </div>
+
         <div>
-            <h1 style="margin-top:30px;font-weight:bold">
-                @Html.DisplayFor(model => model.Titulo)
-            </h1>
-
-            <p>
-                @Html.DisplayFor(model => model.Utilizador.NomeCompleto)
-            </p>
-
-            
-            <p>
-                @Html.DisplayFor(model => model.Data)
-            </p>
-            <p>
-                @Html.DisplayFor(model => model.Conteudo)
-            </p>
-
-            <div style="text-align:center">
-                <a href="~/NoticiasFotos/@Model.Fotografia" target="_blank">
-                    <img src="~/NoticiasFotos/@Model.Fotografia" width="620" height="413" />
-                </a>
-            </div>
-
+            <h4 style="margin-top:10px">Equipas Referentes à Noticia:</h4>
             <div>
-                <h4 style="margin-top:10px">Equipas Referentes à Noticia:</h4>
-                <div>
-                    <p>(Clique para ver Equipa)</p>
-                    @foreach (var foto in Model.ListaDeEquipas)
-            {
-                <div>
-                    <img onclick="location.href='@Url.Action("Details","Equipas", new { id = foto.ID })'" src="~/EquipasFotos/@Html.DisplayFor(f=>foto.Logotipo)" width="50" height="50" />
-                </div>
-    }
-                </div>
-
-            </div>
-
-
-
-            <div>
-                <div class="text-center" style="margin-top:100px">
-                    <h1 class="comentarios" style="color: cadetblue">Comentários:</h1>
-                </div>
-
-                <hr class="estilo3">
-                <div class="alert alert-info" style="margin-top:20px; margin-right:690px">
-                    <strong>Nota:</strong> Para adicionar um comentário é necessário iniciar sessão!
-                </div>
-                @if (User.IsInRole("UtilizadorLogado") || User.IsInRole("Administrador") || User.IsInRole("Moderador"))
-        {
-            <div style="margin-top:30px">
-
-                @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-            @Html.HiddenFor(model => Model.ID)
-            @Html.TextArea("ComentarioBox", "", 4, 100, htmlAttributes: new { @placeholder = "Adicione um Comentário" })
-            <button type="submit" name=" botaoComentario" class="btn btn-primary "> Comentar </button>
-}
-
-            </div>
-}
-                @foreach (var comentario in Model.ListaDeComentarios)
-        {
-
-            <dt>
-                <img src="~/UserFoto/UserFotoM.jpg" width="30" height="30" />
-                @Html.DisplayFor(c => comentario.Utilizador.Username)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(c => comentario.Texto) -
-                @Html.DisplayFor(c => comentario.DataComentario)
-                @if (User.Identity.Name.Equals(comentario.Utilizador.Username) || User.IsInRole("Administrador") || User.IsInRole("Moderator"))
-        {
-            <a href='@Url.Action("Delete","Comentarios",new { id = comentario.ID,NoticiaPK = comentario.NoticiaPK})'>
-                <i class="glyphicon glyphicon-remove-sign" style="color:red;width:50px;height:50px"></i>
-            </a>
-            <a href='@Url.Action("Edit","Comentarios",new { id = comentario.ID, NoticiaPK = comentario.NoticiaPK})' class="glyphicon  glyphicon-pencil">
-            </a>
-}
-
-
-            </dd>
-
-
-}
-            </div>
-
-            <div style="margin-top:20px">
-                <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Index", "Noticias", new { id = Model.ID })'"> Voltar ao Inicio </button>
+                <p>(Clique para ver Equipa)</p>
+                @foreach (var foto in Model.ListaDeEquipas)
+                {
+                    <div>
+                        <img onclick="location.href='@Url.Action("Details","Equipas", new { id = foto.ID })'" src="~/EquipasFotos/@Html.DisplayFor(f=>foto.Logotipo)" width="50" height="50" />
+                    </div>
+                }
             </div>
 
         </div>
+
+
+
+        <div>
+            <div class="text-center" style="margin-top:100px">
+                <h1 class="comentarios" style="color: cadetblue">Comentários:</h1>
+            </div>
+
+            <hr class="estilo3">
+            <div class="alert alert-info" style="margin-top:20px; margin-right:690px">
+                <strong>Nota:</strong> Para adicionar um comentário é necessário iniciar sessão!
+            </div>
+            @if (User.IsInRole("UtilizadorLogado") || User.IsInRole("Administrador") || User.IsInRole("Moderador"))
+            {
+                <div style="margin-top:30px">
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => Model.ID)
+                        @Html.TextArea("ComentarioBox", "", 4, 100, htmlAttributes: new { @placeholder = "Adicione um Comentário" })
+                        <button type="submit" name=" botaoComentario" class="btn btn-primary "> Comentar </button>
+                    }
+
+                </div>
+            }
+            @foreach (var comentario in Model.ListaDeComentarios)
+            {
+
+                <dt>
+                    <img src="~/UserFoto/UserFotoM.jpg" width="30" height="30" />
+                    @Html.DisplayFor(c => comentario.Utilizador.Username)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(c => comentario.Texto) -
+                    @Html.DisplayFor(c => comentario.DataComentario)
+                    @if (User.Identity.Name.Equals(comentario.Utilizador.Username) || User.IsInRole("Administrador") || User.IsInRole("Moderator"))
+                    {
+                        <a href='@Url.Action("Delete","Comentarios",new { id = comentario.ID,NoticiaPK = comentario.NoticiaPK})'>
+                            <i class="glyphicon glyphicon-remove-sign" style="color:red;width:50px;height:50px"></i>
+                        </a>
+                        <a href='@Url.Action("Edit","Comentarios",new { id = comentario.ID, NoticiaPK = comentario.NoticiaPK})' class="glyphicon  glyphicon-pencil">
+                        </a>
+                    }
+
+
+                </dd>
+
+
+            }
+        </div>
+
+        <div style="margin-top:20px">
+            <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Index", "Noticias", new { id = Model.ID })'"> Voltar ao Inicio </button>
+        </div>
+
+    </div>
 
 </body>
 </html>

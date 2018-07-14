@@ -8,26 +8,30 @@
 <div class="row">
     <div class="col-md-8">
 
-        <h5>
-            Nome:
-        </h5>
-       
-
-
-
-        <p>
+        <div>
+            <hr />
+            <div>
+                @Html.Action("Details", "Utilizadores", new { id = Session["NomeUser"] })
+            </div>
             @if (Model.HasPassword)
             {
-                @Html.ActionLink("Mude a sua passe-word", "ChangePassword")
+                <br />
+                <a href="@Url.Action("ChangePassword","Manage")" style="font-size:15px;color:darkred;font-style:italic">Alterar password</a>
             }
             else
             {
-                @Html.ActionLink("Confirme a sua passe-word", "SetPassword")
+                <br />
+                @Html.ActionLink("Create", "SetPassword")
             }
-        </p>
+        </div>
 
-       @*@Html.Action("Details","Utilizadores",new { id = (int)Session["UtilizadorID"] })*@
-        
-     
+        <div>
+            <a href="@Url.Action("Edit","Utilizadores", new { id = Session["NomeUser"] })" style="font-size:15px;color:darkred;font-style:italic">Editar Perfil</a>
+        </div>
+
+
+        @*@Html.Action("Details","Utilizadores",new { id = (int)Session["UtilizadorID"] })*@
+
+
     </div>
 </div>
