@@ -10,27 +10,32 @@
 
         <div>
             <hr />
-            <div>
-                @Html.Action("Details", "Utilizadores", new { id = Session["UtilizadorID"] })
-            </div>
             @if (Model.HasPassword)
-        {
-            <br />
-            <a href="@Url.Action("ChangePassword","Manage")" style="font-size:15px;color:darkred;font-style:italic">Alterar password</a>
-    }
-    else
-    {
-        <br />
-        @Html.ActionLink("Create", "SetPassword")
-}
+            {
+                <br />
+                <a href="@Url.Action("ChangePassword","Manage")" style="font-size:15px;color:darkred">Alterar password</a>
+            }
+            else
+            {
+                <br />
+                @Html.ActionLink("Create", "SetPassword")
+            }
         </div>
 
+
+
         <div>
-            <a href="@Url.Action("Edit","Utilizadores", new { id = Session["UtilizadorID"] })" style="font-size:15px;color:darkred;font-style:italic">Editar Perfil</a>
+            @Html.Action("Details", "Utilizadores", new { id = Session["UtilizadorID"] })
+        </div>
+
+
+
+        <div>
+            <a href="@Url.Action("Edit","Utilizadores", new { id = Session["UtilizadorID"] })" style="font-size:15px;color:darkred">Editar Perfil</a>
         </div>
 
 
         <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Index", "Noticias")'" style="margin-top:20px; margin-bottom:10px">Cancelar</button>
 
-    </div>
+</div>
 

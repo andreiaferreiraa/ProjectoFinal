@@ -13,57 +13,17 @@
 </head>
 <body>
     <div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Username)
-            </dt>
+        <h4 style="margin-left:30px">UserName:</h4>
+        <p style="margin-left:30px">@Html.DisplayFor(model => model.Username) </p>
+        <h4 style="margin-left:30px">Nome Completo:</h4>
+        <p style="margin-left:30px">@Html.DisplayFor(model => model.NomeCompleto)</p>
+        <h4 style="margin-left:30px">E-mail:</h4>
+        <p style="margin-left:30px">@Html.DisplayFor(model => model.Email)</p>
+        <h4 style="margin-left:30px">Contacto Telefónico</h4>
+        <p style="margin-left:30px">@Html.DisplayFor(model => model.ContactoTelefonico) </p>
+        <h4 style="margin-left:30px">Data de Nascimento:</h4>
+        <p style="margin-left:30px"> @Html.DisplayFor(model => model.DataNascimento)</p>
 
-            <dd>
-                @Html.DisplayFor(model => model.Username)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.NomeCompleto)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.NomeCompleto)
-            </dd>
-            
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Email)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Email)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ContactoTelefonico)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ContactoTelefonico)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DataNascimento)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DataNascimento)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Foto)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Foto)
-            </dd>
-
-        </dl>
     </div>
    
 </body>

@@ -23,7 +23,8 @@
         @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Jogadores</h4>
+        <br />
+        <h3 style="color:darkcyan"> Editar Jogador </h3>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
@@ -77,26 +78,24 @@
             </div>
         </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Fotografia, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-               
-                    @* Mostrar a imagem associada ao Jogador *@
-                    <a href="~/JogadoresFotos/@Model.Fotografia" target="_blank">
-                        <img src="~/JogadoresFotos/@Model.Fotografia" height="150" />
-                    </a>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Fotografia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
 
-                    @* procurar a nova imagem*@
-                    <input type="file" name="ficheiroFotografiaJogador" style="color:blue;" accept=".jpg" />
-                </div>
+                @* Mostrar a imagem associada ao Jogador *@
+                <a href="~/JogadoresFotos/@Model.Fotografia" target="_blank">
+                    <img src="~/JogadoresFotos/@Model.Fotografia" height="150" />
+                </a>
+
+                @* procurar a nova imagem*@
+                <input type="file" name="ficheiroFotografiaJogador" style="color:blue;" accept=".jpg" />
             </div>
-
-        
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Guardar" class="btn btn-success" />
-                <button type="button" class="btn btn-default" style="margin-bottom:0px; margin-top:500px;" onclick="location.href='@Url.Action("Details", "Equipas", new { id = Model.ID })'"> Voltar ao Inicio </button>
+                <button type="button" class="btn btn-default" style="margin-bottom:0px" onclick="location.href='@Url.Action("Details", "Equipas", new { id = Model.EquipaPK })'"> Cancelar </button>
             </div>
         </div>
     </div>
