@@ -1,7 +1,7 @@
 ﻿@model HockeyPT.Models.Utilizadores
 
 @{
-    Layout = null;
+    ViewBag.Title = "Edit";
 }
 
 <!DOCTYPE html>
@@ -14,18 +14,18 @@
 <body>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
-    
-    
+
+
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        
+
         <div class="form-horizontal">
             <h4>Utilizadores</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.ID)
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -33,7 +33,7 @@
                     @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.NomeCompleto, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <d
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -50,7 +50,7 @@
                     @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.ContactoTelefonico, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -58,7 +58,7 @@
                     @Html.ValidationMessageFor(model => model.ContactoTelefonico, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.DataNascimento, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -66,17 +66,16 @@
                     @Html.ValidationMessageFor(model => model.DataNascimento, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+    </div>
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                    <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Index", "Manage")'" style="margin-top:20px; margin-bottom:10px">Cancelar</button>
+                    <input type="submit" value="Guardar" class="btn btn-success" />
                 </div>
             </div>
-        </div>
+        
     }
-    
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
+
 </body>
 </html>

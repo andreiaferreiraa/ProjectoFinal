@@ -29,6 +29,8 @@ namespace HockeyPT.Models
 
         public string ContactoTelefonico { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         public DateTime DataNascimento { get; set; }
 
         public string Foto { get; set; }

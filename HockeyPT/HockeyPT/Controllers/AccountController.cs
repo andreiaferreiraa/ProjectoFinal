@@ -149,38 +149,31 @@ namespace IdentitySample.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model,string DataNascimento)
         {
             ApplicationDbContext db = new ApplicationDbContext();
-
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-            if (ModelState.IsValid)
+            if(DataNascimento == "")
+            {
+                ModelState.AddModelError("", "Erro na data de nascimento!");
+                return View(model);
+            }
+            if (Convert.ToDateTime(DataNascimento)>= System.DateTime.Now)
+            {
+                ModelState.AddModelError("", "Erro na data de nascimento!");
+                return View(model);
+            }
 
+            if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    var result2 = userManager.AddToRole(user.Id, "UtilizadorLogado");
-                    try
-                    {
-                        Utilizadores Utilizadores = new Utilizadores();
-                        Utilizadores = model.Utilizadores;
-                        Utilizadores.Username = user.UserName;
-                        Utilizadores.Email = user.Email;
-                        db.Utilizadores.Add(Utilizadores);
-                        db.SaveChanges();
-
-
-                    }
-                    catch (Exception)
-                    {
-
-
-                    }
-
-
+                    Utilizadores utilizador = new Utilizadores { ID = db.Utilizadores.Max(a => a.ID) + 1, NomeCompleto = model.Utilizadores.NomeCompleto, ContactoTelefonico = model.Utilizadores.ContactoTelefonico, DataNascimento = Convert.ToDateTime(DataNascimento),Username=model.Email };
+                    db.Utilizadores.Add(utilizador);
+                    db.SaveChanges();
+                    var result1 = userManager.AddToRole(user.Id, "UtilizadorLogado");
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
@@ -189,6 +182,43 @@ namespace IdentitySample.Controllers
                 }
                 AddErrors(result);
             }
+
+            
+
+            //if (ModelState.IsValid)
+
+            //{
+            //    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+            //    var result = await UserManager.CreateAsync(user, model.Password);
+            //    if (result.Succeeded)
+            //    {
+            //        var result2 = userManager.AddToRole(user.Id, "UtilizadorLogado");
+            //        try
+            //        {
+            //            Utilizadores Utilizadores = new Utilizadores();
+            //            Utilizadores = model.Utilizadores;
+            //            Utilizadores.Username = user.UserName;
+            //            Utilizadores.Email = user.Email;
+            //            db.Utilizadores.Add(Utilizadores);
+            //            db.SaveChanges();
+
+
+            //        }
+            //        catch (Exception)
+            //        {
+
+
+            //        }
+
+
+            //        var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            //        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+            //        await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+            //        ViewBag.Link = callbackUrl;
+            //        return View("DisplayEmail");
+            //    }
+            //    AddErrors(result);
+            
 
             // If we got this far, something failed, redisplay form
             return View(model);

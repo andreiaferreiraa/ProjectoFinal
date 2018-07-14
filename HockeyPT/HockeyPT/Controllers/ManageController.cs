@@ -38,6 +38,7 @@ namespace IdentitySample.Controllers
         // GET: /Account/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
+            ApplicationDbContext db = new ApplicationDbContext();
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
@@ -46,6 +47,15 @@ namespace IdentitySample.Controllers
                 : message == ManageMessageId.AddPhoneSuccess ? "The phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
+            
+
+            var idUtilizador = db.Utilizadores.Where(d => d.Username == User.Identity.Name);
+
+            foreach (var utilizador in idUtilizador)
+            {
+                Session["UtilizadorID"] = utilizador.ID;
+                Session["UtilizadorUsername"] = utilizador.Username;
+            }
 
             var model = new IndexViewModel
             {
