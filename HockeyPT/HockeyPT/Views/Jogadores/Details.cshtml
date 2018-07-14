@@ -17,60 +17,31 @@
 
     <div style="display:flex">
         <a href="~/JogadoresFotos/@Model.Fotografia" target="_blank">
-            <img src="~/JogadoresFotos/@Model.Fotografia" width="250" height="409" />
+            <img src="~/JogadoresFotos/@Model.Fotografia" width="270" height="409" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"/>
         </a>
 
-        <dl class="dl-horizontal" style="margin-top:150px">
+        <div class="detalhesJogadorEsq" style="margin-left:30px">
+            <h3 style="margin-bottom:0px">Nome do Jogador:</h3>
+            <p>@Html.DisplayFor(model => model.Nome)</p>
+            
+            <h3 style="margin-bottom:0px"> Data de Nascimento:</h3>
+            <p>@Html.DisplayFor(model => model.DataNascimento)</p>
+            
+            <h3 style="margin-bottom:0px"> Nacionalidade do Jogador:</h3>
+            <p>@Html.DisplayFor(model => model.Nacionalidade)</p>
+            <h3 style="margin-bottom:0px"> Altura do Jogador:</h3>
+            <p>@Html.DisplayFor(model => model.Altura)</p>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Nome)
-            </dt>
+        </div>
+        <div class="detalhesJogadorDir" style="float:right; margin-left:30px">
+            <h3 style="margin-bottom:0px"> Posição do Jogador:</h3>
+            <p>@Html.DisplayFor(model => model.Posicao)</p>
+            <h3 style="margin-bottom:0px"> Nacionalidade do Jogador:</h3>
+            <p>@Html.DisplayFor(model => model.Nacionalidade)</p>
+            <h3 style="margin-bottom:0px"> Peso do Jogador:</h3>
+            <p>@Html.DisplayFor(model => model.Peso)</p>
 
-            <dd>
-                @Html.DisplayFor(model => model.Nome)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Posicao)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Posicao)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DataNascimento)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DataNascimento)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Nacionalidade)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Nacionalidade)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Altura)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Altura)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Peso)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Peso)
-            </dd>
-
-        </dl>
+        </div>
     </div>
 
     @if (User.IsInRole("Administrador") || User.IsInRole("Moderador"))

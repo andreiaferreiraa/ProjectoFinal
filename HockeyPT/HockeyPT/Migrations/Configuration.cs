@@ -215,8 +215,8 @@ namespace HockeyPT.Migrations
             //***************************************************************************************************************
             //adiciona UTILIZADORES
             var utilizadores = new List<Utilizadores>{
-                new Utilizadores {ID=1, Username="jcarloslopes3@hotmail.com", NomeCompleto="José Carlos Lopes", Email="jcarloslopes@hotmail.com", ContactoTelefonico="910352191", DataNascimento= new DateTime(1980,03,25), Foto="UserFotoM.jpg"},
-                new Utilizadores {ID=2, Username="ananunesrib9@gmail.com", NomeCompleto="Ana Nunes Ribeiro", Email="ananunesrib@gmail.com", ContactoTelefonico="967892213", DataNascimento= new DateTime(1986,09,17),  Foto="UserFotoM.jpg"},
+                new Utilizadores {ID=1, Username="jcarlopes3@hotmail.com", NomeCompleto="José Carlos Lopes", Email="jcarlopes3@hotmail.com", ContactoTelefonico="910352191", DataNascimento= new DateTime(1980,03,25), Foto="UserFotoM.jpg"},
+                new Utilizadores {ID=2, Username="ananunesrib9@gmail.com", NomeCompleto="Ana Nunes Ribeiro", Email="ananunesrib9@gmail.com", ContactoTelefonico="967892213", DataNascimento= new DateTime(1986,09,17),  Foto="UserFotoM.jpg"},
             };
             utilizadores.ForEach(uu => context.Utilizadores.AddOrUpdate(u => u.NomeCompleto, uu));
             context.SaveChanges();

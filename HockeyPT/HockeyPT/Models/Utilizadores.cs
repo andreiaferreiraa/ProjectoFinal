@@ -19,10 +19,12 @@ namespace HockeyPT.Models
         public int ID { get; set; }
 
         //atributos do utilizador
+        [StringLength(24)]
         public string Username { get; set; }
         
         public string NomeCompleto { get; set; }
 
+        [StringLength(24)]
         public string Email { get; set; }
 
         public string ContactoTelefonico { get; set; }
