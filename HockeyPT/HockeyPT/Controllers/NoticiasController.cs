@@ -13,7 +13,7 @@ using PagedList;
 using PagedList.Mvc;
 namespace HockeyPT.Controllers
 {
-    
+
     public class NoticiasController : Controller
     {
 
@@ -24,7 +24,7 @@ namespace HockeyPT.Controllers
         {
             var pageNumber = page ?? 1;
             var pageSize = 6;
-            return View(db.Noticias.OrderByDescending(x=>x.ID).ToPagedList(pageNumber,pageSize));
+            return View(db.Noticias.OrderByDescending(x => x.ID).ToPagedList(pageNumber, pageSize));
 
         }
         //******************************************DETAILS*******************************************************
@@ -61,7 +61,7 @@ namespace HockeyPT.Controllers
             comentario.NoticiaPK = id;
             comentario.Texto = ComentarioBox;
             //permite ir buscar o id do utilizador que esta logado e que faz o comentario
-            comentario.UtilizadorPK = db.Utilizadores.Where(model => model.Username==User.Identity.Name).FirstOrDefault().ID;
+            comentario.UtilizadorPK = db.Utilizadores.Where(model => model.Username == User.Identity.Name).FirstOrDefault().ID;
 
             if (comentario.Texto == "")
             {
@@ -93,7 +93,7 @@ namespace HockeyPT.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Titulo,Conteudo,Fotografia")] Noticias noticias,
-                            HttpPostedFileBase ficheiroFotoNoticia, 
+                            HttpPostedFileBase ficheiroFotoNoticia,
                             string[] checkBoxEquipas)
         {
             var idNovaNoticia = 0;
@@ -115,7 +115,7 @@ namespace HockeyPT.Controllers
 
 
             //verificar se chega efetivamente um ficheiro ao servidor
-            if(ficheiroFotoNoticia != null)
+            if (ficheiroFotoNoticia != null)
             {
                 //verifica se o ficheiro é uma imagem
                 if (ficheiroFotoNoticia.ContentType.Contains("image"))
@@ -135,12 +135,12 @@ namespace HockeyPT.Controllers
                 //redirecionar o utilizador para a View
                 return View(noticias);
             }
-            
+
 
             //verificar a lista de equipas
             if (checkBoxEquipas != null)
             {
-                for(var i=0; i < checkBoxEquipas.Length; i++)
+                for (var i = 0; i < checkBoxEquipas.Length; i++)
                 {
                     var x = db.Equipas.Find(Int32.Parse(checkBoxEquipas[i]));
                     noticias.ListaDeEquipas.Add(x);
@@ -159,8 +159,10 @@ namespace HockeyPT.Controllers
             noticias.IsVisible = true;
             //ModelSatete.IsValid -> confronta os dados fornecidos com o modelo
             //se nao respeitar as regra dos modelo, rejeita os dados
-            try {
-                if (ModelState.IsValid) {
+            try
+            {
+                if (ModelState.IsValid)
+                {
 
                     //adiciona na estrutura de dados, na memoria do servidor, o objeto Jogadores
                     db.Noticias.Add(noticias);
@@ -178,7 +180,7 @@ namespace HockeyPT.Controllers
                 ModelState.AddModelError("", "Ocorreu um erro na criação de uma noticia ");
                 return RedirectToAction("Index");
             }
-            
+
             //ViewBag.listaEquipas = db.Equipas.ToList();
             return View(noticias);
         }
@@ -211,152 +213,164 @@ namespace HockeyPT.Controllers
         public ActionResult Edit(FormCollection formulario,
                             HttpPostedFileBase carregaFotoNoticia)
         {
-            string novoNome = "";
-            string nomeAntigo = "";
+
+
             Noticias noticia = db.Noticias.Find((int)Session["id"]);
-            noticia.Data = DateTime.Now;
+            //preencher os campos da noticia com os campos do formulário
+            noticia.Titulo = formulario["Titulo"];
+            noticia.Conteudo = formulario["Conteudo"];
 
-            var tipo = "";
-            tipo = carregaFotoNoticia.ContentType;
+            //Preencher a data com o dia em que a noticia foi alterada
+            noticia.Data = System.DateTime.Now;
 
-            if (ModelState.IsValid)
+            // preencher o autor com o utilizador que está autenticado
+            var idUtilizador = db.Utilizadores.Where(d => d.Username == User.Identity.Name).FirstOrDefault();
+            noticia.UtilizadorPK = idUtilizador.ID;
+
+            //variaveis auxiliares para tratamento da Foto
+            string caminhoNoticia = "";
+            string nomeAntigo = formulario["Fotografia"];
+            //verificação se foi inserido algum ficheiro
+            if (carregaFotoNoticia != null)
             {
-                try
+                string nomeFotografia = "Noticia" + noticia.ID + DateTime.Now.ToString("_yyyyMMdd_hhmmss") + Path.GetExtension(carregaFotoNoticia.FileName).ToLower();
+                //verificar se o ficheiro inserido é uma imagem
+                if (carregaFotoNoticia.ContentType.Contains("image"))
                 {
-                    //se a imagem nao for nula
-                    if (carregaFotoNoticia != null)
-                    {
-                        //verificar se é mesmo uma imagem
-                        if(tipo == "image/jpeg" || tipo=="image/jpg" || tipo=="image/png" || tipo== "image/bmp")
-                        {
-                            nomeAntigo = noticia.Fotografia;
-                            novoNome = "Noticia" + noticia.ID + DateTime.Now.ToString("_yyyyMMdd_hhmmss") + Path.GetExtension(carregaFotoNoticia.FileName).ToLower(); ;
-                            noticia.Fotografia = novoNome;
-                            carregaFotoNoticia.SaveAs(Path.Combine(Server.MapPath("~/NoticiasFotos/"), novoNome));
+                    noticia.Fotografia = nomeFotografia;
+                    caminhoNoticia = Path.Combine(Server.MapPath("~/NoticiasFotos/"), nomeFotografia);
+                    carregaFotoNoticia.SaveAs(Path.Combine(Server.MapPath("~/NoticiasFotos/"), nomeFotografia));
 
-                        }
-                        //se não for uma imagem
-                        else
-                        {
-                            //redireciona para o "Edit"
-                            return RedirectToAction("Edit");
-                        }
-                    }
-                    else { }
-                    //preencher a noticia com os valores do formulario
-                    noticia.Titulo = formulario["Titulo"];
-                    noticia.Conteudo = formulario["Conteudo"];
-
-                    //criar uma lista auxiliar
-                    ICollection<Equipas> listaEquipa = new List<Equipas> { };
-
-                    //verificar se o as checkboxs sao diferentde null
-                    if (formulario["checkBoxEquipas"] != null)
-                    {
-                        //array auxiliar de checkbox's
-                        var arrayCheckBox = formulario["checkBoxEquipas"].Split(',');
-                        //percorrer as equipas todas
-                        foreach(var equipa in db.Equipas.ToList())
-                        {
-                            //se o array das checkbox tem o id da equipa
-                            if (arrayCheckBox.Contains(equipa.ID.ToString()))
-                            {
-                                //adicionar na lista auxiliar a equipa
-                                listaEquipa.Add(equipa);
-                                //verifcar se a equipa nao pertence aquela noticia
-                                if (!equipa.ListaDeNoticias.Contains(noticia))
-                                {
-                                    equipa.ListaDeNoticias.Add(noticia);
-                                }
-                            }
-                            else
-                            {
-                                //se a equipa pertecenr a noticia mas nao esteja true na checkbox
-                                if (equipa.ListaDeNoticias.Contains(noticia))
-                                {
-                                    equipa.ListaDeNoticias.Remove(noticia);
-                                }
-                            }
-                        }
-                        noticia.ListaDeEquipas = listaEquipa;
-                    }
-
-
-
-                    db.Entry(noticia).State = EntityState.Modified;
-                    db.SaveChanges();
-                    if (carregaFotoNoticia != null)
-                        System.IO.File.Delete(Path.Combine(Server.MapPath("~/NoticiasFotos/"), nomeAntigo));
-                    
-                    // enviar os dados para a página inicial
-                    return RedirectToAction("Index");
-
+                    //Apagar no disco a imagem
+                    System.IO.File.Delete(Path.Combine(Server.MapPath("~/NoticiasFotos/"), nomeAntigo));
                 }
-                catch(Exception)
-                {
-                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição dos dados da noticia {0}", noticia.Titulo));
-                }
-                
             }
+            //ficheiro nao inserido
+            else
+            {
+                //definir a capa com o valor do formulario
+                noticia.Fotografia = formulario["Fotografia"];
+            }
+
+            //criar uma lista auxiliar
+            ICollection<Equipas> listaEquipa = new List<Equipas> { };
+
+            //verificar se o as checkboxs sao diferentde null
+            if (formulario["checkBoxEquipas"] != null)
+            {
+                //array auxiliar de checkbox's
+                var arrayCheckBox = formulario["checkBoxEquipas"].Split(',');
+                //percorrer as equipas todas
+                foreach (var equipa in db.Equipas.ToList())
+                {
+                    //se o array das checkbox tem o id da equipa
+                    if (arrayCheckBox.Contains(equipa.ID.ToString()))
+                    {
+                        //adicionar na lista auxiliar a equipa
+                        listaEquipa.Add(equipa);
+                        //verifcar se a equipa nao pertence aquela noticia
+                        if (!equipa.ListaDeNoticias.Contains(noticia))
+                        {
+                            equipa.ListaDeNoticias.Add(noticia);
+                        }
+                    }
+                    else
+                    {
+                        //se a equipa pertecenr a noticia mas nao esteja true na checkbox
+                        if (equipa.ListaDeNoticias.Contains(noticia))
+                        {
+                            equipa.ListaDeNoticias.Remove(noticia);
+                        }
+                    }
+                }
+                noticia.ListaDeEquipas = listaEquipa;
+            }
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    //guardar os dados da Noticia
+                    db.Entry(noticia).State = EntityState.Modified;
+                    //efetuar o commit
+                    db.SaveChanges();
+                    //enviar os dados para a pagina inicial
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception)
+            {
+
+                ModelState.AddModelError("", "Não foi possivel concratizar a operação.");
+            }
+
             return View(noticia);
         }
+
+
+
+
+
+
+
+          
 
         //***************************************************DELETE************************************************
 
         // GET: Noticias/Delete/5
         [Authorize(Roles = "Administrador, Moderador")]
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Noticias noticias = db.Noticias.Find(id);
-            if (noticias == null)
-            {
-                return HttpNotFound();
-            }
-            return View(noticias);
-        }
+public ActionResult Delete(int? id)
+{
+    if (id == null)
+    {
+        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+    }
+    Noticias noticias = db.Noticias.Find(id);
+    if (noticias == null)
+    {
+        return HttpNotFound();
+    }
+    return View(noticias);
+}
 
-        // POST: Equipas/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrador, Moderador")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            //encontrar o id da noticia
-            Noticias noticias = db.Noticias.Find(id);
-            noticias.IsVisible = false;
-            //remover a noticia das noticias
-            var noticiasEquipas = noticias.ListaDeEquipas.ToList();
+// POST: Equipas/Delete/5
+[HttpPost, ActionName("Delete")]
+[ValidateAntiForgeryToken]
+[Authorize(Roles = "Administrador, Moderador")]
+public ActionResult DeleteConfirmed(int id)
+{
+    //encontrar o id da noticia
+    Noticias noticias = db.Noticias.Find(id);
+    noticias.IsVisible = false;
+    //remover a noticia das noticias
+    var noticiasEquipas = noticias.ListaDeEquipas.ToList();
 
-            for (var i = 0; i < noticiasEquipas.Count; i++)
-            {
-               var cadaEquipas = noticiasEquipas[i];
-               var RemoveNoticia = cadaEquipas.ListaDeNoticias.Remove(noticias);
-               
-            }
+    for (var i = 0; i < noticiasEquipas.Count; i++)
+    {
+        var cadaEquipas = noticiasEquipas[i];
+        var RemoveNoticia = cadaEquipas.ListaDeNoticias.Remove(noticias);
 
-            db.Entry(noticias).State = EntityState.Modified;
-            db.SaveChanges();
-                return RedirectToAction("Index");
-        }
-        
-        public ActionResult NavEquipas()
-        {
-            IEnumerable<Equipas> listaDeEquipas = db.Equipas.OrderBy(n => n.ID).ToList();
-            return PartialView(listaDeEquipas);
+    }
 
-        }
-            
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+    db.Entry(noticias).State = EntityState.Modified;
+    db.SaveChanges();
+    return RedirectToAction("Index");
+}
+
+public ActionResult NavEquipas()
+{
+    IEnumerable<Equipas> listaDeEquipas = db.Equipas.OrderBy(n => n.ID).ToList();
+    return PartialView(listaDeEquipas);
+
+}
+
+protected override void Dispose(bool disposing)
+{
+    if (disposing)
+    {
+        db.Dispose();
+    }
+    base.Dispose(disposing);
+}
     }
 }

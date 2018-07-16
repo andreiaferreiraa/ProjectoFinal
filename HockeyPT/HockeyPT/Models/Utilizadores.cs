@@ -21,12 +21,17 @@ namespace HockeyPT.Models
         //atributos do utilizador
         [StringLength(24)]
         public string Username { get; set; }
-        
+
+        [RegularExpression("[A-ZÂÍ][a-záéíóúãõàèìòùâêîôûäëïöüç.]+(( | de | da | dos | d'|-)[A-ZÂÍ][a-záéíóúãõàèìòùâêîôûäëïöüç.]+){1,3}",
+            ErrorMessage = "O nome apenas aceita letras. Cada palavra começa por uma maiúscula, seguida de minúsculas")]
         public string NomeCompleto { get; set; }
 
         [StringLength(24)]
         public string Email { get; set; }
 
+
+        [RegularExpression("(9[1236][0-9]) ?([0-9]{3}) ?([0-9]{3})",
+            ErrorMessage = "Contacto Telefónico Inválido")]
         public string ContactoTelefonico { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]

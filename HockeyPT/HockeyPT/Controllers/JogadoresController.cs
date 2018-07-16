@@ -93,21 +93,32 @@ namespace HockeyPT.Controllers
             //atribuiçao da EquipaFK ao jogador
             jogadores.EquipaPK = (int)Session["EquipaFK"];
             string nomeFotografia = "Jogadores_" + novoIDJogador + ".jpg";
-            string caminhoFotografia = Path.Combine(Server.MapPath("~/JogadoresFotos/"), nomeFotografia); // indica onde a imagem será guardada
+            string caminhoFotografia = "";      
 
-
-            //verificar se chega efetivamente um ficheiro ao servidor
-            if(carregaFotografia != null)
+            if (carregaFotografia != null)
             {
-                //guardar o nome da imagem na base de dados
-                jogadores.Fotografia = nomeFotografia;
+                //Verificar se o ficheiro é uma imagem
+                if (carregaFotografia.ContentType.Contains("image"))
+                {
+                    //Definir o nome da Capa
+                    jogadores.Fotografia = nomeFotografia;
+                    //guardar na variavel auxiliar o caminho para onde guardar a imagem
+                    caminhoFotografia = Path.Combine(Server.MapPath("~/JogadoresFotos/"), nomeFotografia); // indica onde a imagem será guardada
+                }
+                else
+                {
+                    ModelState.AddModelError("", "O ficheiro inserido não é nenhuma imagem!");
+                }
+
             }
+            //ficheiro nao inserido
             else
             {
-                //se nao ha imagem
-                ModelState.AddModelError("", "Não foi fornecida nenhuma imagem"); //gera uma mensagem de erro
-                //reenvia os dados para a view
-                return View(jogadores); 
+                //gerar mensagem de erro para indicar o utilizador que nao foi inserida nenhuma imagem
+                ModelState.AddModelError("", "Não foi inserida uma imagem");
+                //redirecionar o utilizador para a View
+                return View(jogadores);
+
             }
 
             //ModelSatete.IsValid -> confronta os dados fornecidos com o modelo

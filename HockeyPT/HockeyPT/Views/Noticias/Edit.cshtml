@@ -20,71 +20,74 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <h4>Noticias</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.ID)
-            @Html.HiddenFor(model => model.Fotografia)
+    <div class="form-horizontal">
+        <br />
+        <h3 style="color:darkcyan"> Editar uma Notícia </h3>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.Fotografia)
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
             </div>
+        </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Conteudo, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Conteudo, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Conteudo, "", new { @class = "text-danger" })
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Conteudo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.Conteudo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Conteudo, htmlAttributes: new { @style = "height:250px; width:640px;"  })
+
             </div>
+        </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Fotografia, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
 
-                    <div class="col-md-10">
-
-                        @* Mostrar a imagem associada ao Jogador *@
-                        <a href="~/NoticiasFotos/@Model.Fotografia" target="_blank">
-                            <img src="~/NoticiasFotos/@Model.Fotografia" height="150" />
-                        </a>
-
-                        @* procurar a nova imagem*@
-                        <input type="file" name="carregaFotoNoticia" style="color:blue;" accept=".jpg" />
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Fotografia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
 
                 <div class="col-md-10">
-                    @foreach (Equipas equipa in ViewBag.listaEquipas)
-                    {
-                        if (Model.ListaDeEquipas.Contains(equipa))
-                        {
-                            <input type="checkbox" checked name="checkBoxEquipas" value="@equipa.ID" />
-                        }
-                        else
-                        {
-                            <input type="checkbox" name="checkBoxEquipas" value="@equipa.ID" />
-                        }
 
-                        @equipa.Nome
-                    }
+                    @* Mostrar a imagem associada ao Jogador *@
+                    <a href="~/NoticiasFotos/@Model.Fotografia" target="_blank">
+                        <img src="~/NoticiasFotos/@Model.Fotografia" height="150" />
+                    </a>
 
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                    @* procurar a nova imagem*@
+                    <input type="file" name="carregaFotoNoticia" style="color:blue;" accept=".jpg" />
                 </div>
             </div>
         </div>
+        <div class="form-group">
+
+            <div class="col-md-12">
+                @foreach (Equipas equipa in ViewBag.listaEquipas)
+            {
+                if (Model.ListaDeEquipas.Contains(equipa))
+                {
+                    <input type="checkbox" checked name="checkBoxEquipas" value="@equipa.ID" />
+            }
+            else
+            {
+                <input type="checkbox" name="checkBoxEquipas" value="@equipa.ID" />
+        }
+
+        @equipa.Nome
+}
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
     }
 
     <div>

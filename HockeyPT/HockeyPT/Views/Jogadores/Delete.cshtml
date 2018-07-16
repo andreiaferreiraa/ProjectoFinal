@@ -15,7 +15,7 @@
 
     <div>
         <h3 style="color:brown">Tem a certeza que pretende eliminar o jogador?</h3>
-        <hr />
+       
 
 
         @using (Html.BeginForm())
@@ -23,8 +23,8 @@
             @Html.AntiForgeryToken()
 
             <div class="form-actions no-color">
-                <input type="submit" value="Apagar" class="btn btn-danger" /> |
-                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Detail", "Equipas", new { id = Model.EquipaPK })'"> Cancelar </button>
+                <input type="submit" value="Apagar" class="btn btn-danger" /> 
+                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Details", "Equipas", new { id = Model.EquipaPK })'"> Cancelar </button>
             </div>
         }
     </div>
