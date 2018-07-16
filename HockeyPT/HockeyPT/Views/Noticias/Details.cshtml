@@ -48,17 +48,17 @@
             <h4 style="margin-top:10px">Equipas Referentes à Noticia:</h4>
             <div>
                 <p>(Clique para ver Equipa)</p>
-                @foreach (var foto in Model.ListaDeEquipas)
-                {
-                    <div>
+                <div>
+                    @foreach (var foto in Model.ListaDeEquipas)
+                    {
+
                         <img onclick="location.href='@Url.Action("Details","Equipas", new { id = foto.ID })'" src="~/EquipasFotos/@Html.DisplayFor(f=>foto.Logotipo)" width="50" height="50" />
-                    </div>
-                }
+
+                    }
+                </div>
             </div>
 
         </div>
-
-
 
         <div>
             <div class="text-center" style="margin-top:100px">
@@ -66,13 +66,14 @@
             </div>
 
             <hr class="estilo3">
-            
-            @if (!User.Identity.IsAuthenticated) {
-            <div class="alert alert-info" style="margin-top:20px; margin-right:690px">
-                <strong>Nota:</strong> Para adicionar um comentário é necessário iniciar sessão!
-            </div>
+
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <div class="alert alert-info" style="margin-top:20px; margin-right:690px">
+                    <strong>Nota:</strong> Para adicionar um comentário é necessário iniciar sessão!
+                </div>
             }
-            
+
             @if (User.IsInRole("UtilizadorLogado") || User.IsInRole("Administrador") || User.IsInRole("Moderador"))
             {
                 <div style="margin-top:30px">
