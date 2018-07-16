@@ -27,6 +27,10 @@ namespace HockeyPT.Controllers
             return View(db.Noticias.OrderByDescending(x => x.ID).ToPagedList(pageNumber, pageSize));
 
         }
+        public ActionResult Sobre()
+        {
+            return View();
+        }
         //******************************************DETAILS*******************************************************
         // GET: Noticias/Details/5
         public ActionResult Details(int? id)

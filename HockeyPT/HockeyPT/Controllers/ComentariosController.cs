@@ -15,7 +15,12 @@ namespace HockeyPT.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+
         // GET: Comentarios
+        /// <summary>
+        /// retorna a view index com uma lista de comentários como model
+        /// </summary>
+        /// <returns></returns>
         [Authorize(Roles = "Administrador, Moderador, UtilizadorLogado")]
         public ActionResult Index()
         {
@@ -25,6 +30,11 @@ namespace HockeyPT.Controllers
 
         //******************************************DETAILS*********************************************
         // GET: Comentarios/Details/5
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Administrador, Moderador")]
         public ActionResult Details(int? id)
         {
@@ -52,6 +62,10 @@ namespace HockeyPT.Controllers
 
         //**************************************************CREATE******************************************************
         // GET: Comentarios/Create
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [Authorize(Roles = "Administrador, Moderador, UtilizadorLogado")]
         public ActionResult Create()
         {
@@ -61,8 +75,11 @@ namespace HockeyPT.Controllers
         }
 
         // POST: Comentarios/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="comentarios"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Texto,UtilizadorPK,NoticiaPK")] Comentarios comentarios)
@@ -83,7 +100,11 @@ namespace HockeyPT.Controllers
 
         //************************************************************EDIT****************************************************
         // GET: Comentarios/Edit/5
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -107,8 +128,11 @@ namespace HockeyPT.Controllers
         }
 
         // POST: Comentarios/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="comentarios"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Texto,DataComentario,UtilizadorPK,NoticiaPK")] Comentarios comentarios)
@@ -139,6 +163,11 @@ namespace HockeyPT.Controllers
 
         //*****************************************************************DELETE*************************************************
         // GET: Comentarios/Delete/5
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -154,6 +183,11 @@ namespace HockeyPT.Controllers
         }
 
         // POST: Comentarios/Delete/5
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

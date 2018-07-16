@@ -173,7 +173,7 @@ namespace HockeyPT.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Posicao,DataNascimento,Nacionalidade,Peso,Fotografia,EquipaPK")] Jogadores jogador, double? Altura, FormCollection f,
+        public ActionResult Edit([Bind(Include = "ID,Nome,Posicao,DataNascimento,Nacionalidade,Altura,Peso,Fotografia,EquipaPK")] Jogadores jogador,
                                  HttpPostedFileBase ficheiroFotografiaJogador)
         {
             //variaveis auxiliares
