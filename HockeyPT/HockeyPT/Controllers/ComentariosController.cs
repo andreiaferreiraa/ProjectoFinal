@@ -31,7 +31,7 @@ namespace HockeyPT.Controllers
         //******************************************DETAILS*********************************************
         // GET: Comentarios/Details/5
         /// <summary>
-        /// 
+        /// Método que permite mostrar os detalhes dos comentários
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -63,7 +63,7 @@ namespace HockeyPT.Controllers
         //**************************************************CREATE******************************************************
         // GET: Comentarios/Create
         /// <summary>
-        /// 
+        /// GET: Comentarios/Create
         /// </summary>
         /// <returns></returns>
         [Authorize(Roles = "Administrador, Moderador, UtilizadorLogado")]
@@ -76,7 +76,7 @@ namespace HockeyPT.Controllers
 
         // POST: Comentarios/Create
         /// <summary>
-        /// 
+        /// Método que permite criar um comentário e enviar resposta para o servidor
         /// </summary>
         /// <param name="comentarios"></param>
         /// <returns></returns>
@@ -101,7 +101,7 @@ namespace HockeyPT.Controllers
         //************************************************************EDIT****************************************************
         // GET: Comentarios/Edit/5
         /// <summary>
-        /// 
+        /// GET: Comentarios/Edit/5
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -129,7 +129,7 @@ namespace HockeyPT.Controllers
 
         // POST: Comentarios/Edit/5
         /// <summary>
-        /// 
+        /// Método que permite editar um comentário
         /// </summary>
         /// <param name="comentarios"></param>
         /// <returns></returns>
@@ -164,7 +164,7 @@ namespace HockeyPT.Controllers
         //*****************************************************************DELETE*************************************************
         // GET: Comentarios/Delete/5
         /// <summary>
-        /// 
+        ///  GET: Comentarios/Delete/5
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -184,7 +184,7 @@ namespace HockeyPT.Controllers
 
         // POST: Comentarios/Delete/5
         /// <summary>
-        /// 
+        ///  Método que permite apagar um comentário e envia resposta ao servidor
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

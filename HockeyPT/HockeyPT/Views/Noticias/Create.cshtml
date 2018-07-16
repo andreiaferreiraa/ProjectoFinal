@@ -27,7 +27,7 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.Label("Título", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
@@ -35,7 +35,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Conteudo, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.Label("Conteúdo", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
 
                     @Html.HiddenFor(model => Model.ID)
@@ -75,7 +75,7 @@
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Guardar" class="btn btn-success" />
-                    @*<button type="button" class="btn btn-default" style="margin-bottom:0px" onclick="location.href='@Url.Action("Index ", "Noticias", new { id = Model. })'"> Cancelar </button>*@
+                    
                 </div>
             </div>
         </div>

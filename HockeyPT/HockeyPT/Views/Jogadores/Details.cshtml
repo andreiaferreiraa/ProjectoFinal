@@ -46,7 +46,7 @@
 
     @if (User.IsInRole("Administrador") || User.IsInRole("Moderador"))
     {
-        <div class="">
+        <div style="margin-top:20px ">
             <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Edit","Jogadores",new { id = Model.ID })'">Editar</button>
             <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete","Jogadores",new { id = Model.ID })'">Apagar</button>
         </div>

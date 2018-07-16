@@ -189,11 +189,6 @@ namespace HockeyPT.Controllers
                     ModelState.AddModelError("", "Erro na data de nascimento!");
                     return View(jogador);
                }
-            //}
-            //catch (Exception)
-            //{
-            //    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição dos dados do jogador {0}", jogador.Nome));
-            //}
 
 
             if (ModelState.IsValid)
@@ -202,17 +197,27 @@ namespace HockeyPT.Controllers
                 {
                     if (ficheiroFotografiaJogador != null)
                     {
-                        nomeAntigo = jogador.Fotografia;
-                        novoNome = "Jogador_" + jogador.ID + DateTime.Now.ToString("_yyyyMMdd_hhmmss") + Path.GetExtension(ficheiroFotografiaJogador.FileName).ToLower(); ;
-                        jogador.Fotografia = novoNome;
-                        ficheiroFotografiaJogador.SaveAs(Path.Combine(Server.MapPath("~/JogadoresFotos/"), novoNome));
+                        if (ficheiroFotografiaJogador.ContentType.Contains("image/"))
+                        {
+                            nomeAntigo = jogador.Fotografia;
+                            novoNome = "Jogador_" + jogador.ID + DateTime.Now.ToString("_yyyyMMdd_hhmmss") + Path.GetExtension(ficheiroFotografiaJogador.FileName).ToLower(); ;
+                            jogador.Fotografia = novoNome;
+                            ficheiroFotografiaJogador.SaveAs(Path.Combine(Server.MapPath("~/JogadoresFotos/"), novoNome));
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Erro ao inserir imagem, ficheiro não é uma imagem!");
+                            return View(jogador);
+                        }
                     }
 
                     db.Entry(jogador).State = EntityState.Modified;
                     db.SaveChanges();
 
-                    if(ficheiroFotografiaJogador!=null)
-                        System.IO.File.Delete(Path.Combine(Server.MapPath("~/JogadoresFotos/"), nomeAntigo));
+                    if (ficheiroFotografiaJogador != null && ficheiroFotografiaJogador.ContentType.Contains("/image"))
+                    {
+                       System.IO.File.Delete(Path.Combine(Server.MapPath("~/JogadoresFotos/"), nomeAntigo));
+                    }
 
                     return RedirectToAction("Details", "Equipas", new { id = jogador.EquipaPK });
                 }
