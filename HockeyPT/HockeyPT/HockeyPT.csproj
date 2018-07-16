@@ -224,20 +224,19 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="EquipasFotos\Barcelos.jpg" />
-    <Content Include="EquipasFotos\Benfica.jpg" />
-    <Content Include="EquipasFotos\Braga.jpg" />
-    <Content Include="EquipasFotos\Grandola.jpg" />
-    <Content Include="EquipasFotos\InfanteSagres.jpg" />
-    <Content Include="EquipasFotos\Oliveirense.jpg" />
-    <Content Include="EquipasFotos\PacoArcos.jpg" />
-    <Content Include="EquipasFotos\Porto.jpg" />
-    <Content Include="EquipasFotos\Sporting.jpg" />
-    <Content Include="EquipasFotos\Tomar.jpg" />
-    <Content Include="EquipasFotos\Turquel.jpg" />
-    <Content Include="EquipasFotos\Valenca.jpg" />
-    <Content Include="EquipasFotos\Valongo.jpg" />
-    <Content Include="EquipasFotos\Viana.jpg" />
+    <Content Include="EquipasFotosMvc\Barcelos.jpg" />
+    <Content Include="EquipasFotosMvc\Benfica.jpg" />
+    <Content Include="EquipasFotosMvc\Braga.jpg" />
+    <Content Include="EquipasFotosMvc\Grandola.jpg" />
+    <Content Include="EquipasFotosMvc\InfanteSagres.jpg" />
+    <Content Include="EquipasFotosMvc\Oliveirense.jpg" />
+    <Content Include="EquipasFotosMvc\PacoArcos.jpg" />
+    <Content Include="EquipasFotosMvc\Sporting.jpg" />
+    <Content Include="EquipasFotosMvc\Tomar.jpg" />
+    <Content Include="EquipasFotosMvc\Turquel.jpg" />
+    <Content Include="EquipasFotosMvc\Valenca.jpg" />
+    <Content Include="EquipasFotosMvc\Valongo.jpg" />
+    <Content Include="EquipasFotosMvc\Viana.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -352,6 +351,7 @@
     <Content Include="JogadoresFotos\RicardoCosta.jpg" />
     <Content Include="JogadoresFotos\RicardoSilva.jpg" />
     <Content Include="JogadoresFotos\RodolfoSobral.jpg" />
+    <Content Include="JogadoresFotos\RodrigoCampelo.jpg" />
     <Content Include="JogadoresFotos\RubenPereira.jpg" />
     <Content Include="JogadoresFotos\RubenSilva.jpg" />
     <Content Include="JogadoresFotos\RubenSousa.jpg" />
@@ -411,7 +411,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="UserFoto\UserFotoF.jpg" />
-    <Content Include="UserFoto\UserFotoM.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
