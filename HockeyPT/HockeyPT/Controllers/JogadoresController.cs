@@ -56,6 +56,11 @@ namespace HockeyPT.Controllers
 
         //*************************************************************CREATE***************************************************
         // GET: Jogadores/Create
+        /// <summary>
+        /// GET: Jogadores/Create
+        /// </summary>
+        /// <param name="EquipaFK"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Create(int EquipaFK)
         {
@@ -66,8 +71,12 @@ namespace HockeyPT.Controllers
 
 
         // POST: Jogadores/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Método que permite criar um jogador e enviar para o servidor
+        /// </summary>
+        /// <param name="jogadores"></param>
+        /// <param name="carregaFotografia"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -149,6 +158,11 @@ namespace HockeyPT.Controllers
 
         //*****************************************************EDIT******************************************************
         // GET: Jogadores/Edit/5
+        /// <summary>
+        /// GET: Jogadores/Edit/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int? id)
         {
@@ -168,8 +182,12 @@ namespace HockeyPT.Controllers
         }
 
         // POST: Jogadores/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Método que permite editar um jogador
+        /// </summary>
+        /// <param name="jogador"></param>
+        /// <param name="ficheiroFotografiaJogador"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -234,6 +252,11 @@ namespace HockeyPT.Controllers
 
         //***********************************************************DELETE**********************************************
         // GET: Jogadores/Delete/5
+        /// <summary>
+        /// GET: Jogadores/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
@@ -252,6 +275,11 @@ namespace HockeyPT.Controllers
         }
 
         // POST: Jogadores/Delete/5
+        /// <summary>
+        /// Método que permite eliminar um jogador
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]

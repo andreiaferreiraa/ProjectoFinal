@@ -43,8 +43,11 @@ namespace HockeyPT.Controllers
         }
 
         // POST: Utilizadores/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Método que permite criar um utilizador
+        /// </summary>
+        /// <param name="utilizadores"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Username, NomeCompleto, Apelido,Email,ContactoTelefonico,DataNascimento")] Utilizadores utilizadores)
@@ -60,6 +63,11 @@ namespace HockeyPT.Controllers
         }
 
         // GET: Utilizadores/Edit/5
+        /// <summary>
+        /// GET: Utilizadores/Edit/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -75,8 +83,11 @@ namespace HockeyPT.Controllers
         }
 
         // POST: Utilizadores/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Método que permite editar um utilizador
+        /// </summary>
+        /// <param name="utilizadores"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Username,NomeCompleto, Email,ContactoTelefonico,DataNascimento")] Utilizadores utilizadores)
@@ -91,6 +102,11 @@ namespace HockeyPT.Controllers
         }
 
         // GET: Utilizadores/Delete/5
+        /// <summary>
+        /// GET: Utilizadores/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -106,6 +122,11 @@ namespace HockeyPT.Controllers
         }
 
         // POST: Utilizadores/Delete/5
+        /// <summary>
+        /// Método que permite apagar um utilizador
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

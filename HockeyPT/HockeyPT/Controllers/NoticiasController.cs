@@ -33,6 +33,11 @@ namespace HockeyPT.Controllers
         }
         //******************************************DETAILS*******************************************************
         // GET: Noticias/Details/5
+        /// <summary>
+        /// Método que apresentar os detalhes das equipas
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(int? id)
         {
 
@@ -85,7 +90,10 @@ namespace HockeyPT.Controllers
 
         //**************************************CREATE***********************************************************
         // GET: Noticias/Create
-
+        /// <summary>
+        /// GET: Noticias/Create
+        /// </summary>
+        /// <returns></returns>
         [Authorize(Roles = "Administrador, Moderador")]
         public ActionResult Create()
         {
@@ -94,6 +102,13 @@ namespace HockeyPT.Controllers
         }
 
         // POST: Noticias/Create
+        /// <summary>
+        /// Método que permite criar uma notícia
+        /// </summary>
+        /// <param name="noticias"></param>
+        /// <param name="ficheiroFotoNoticia"></param>
+        /// <param name="checkBoxEquipas"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Titulo,Conteudo,Fotografia")] Noticias noticias,
@@ -191,6 +206,11 @@ namespace HockeyPT.Controllers
 
         //************************************************EDIT************************************************
         // GET: Noticias/Edit/5
+        /// <summary>
+        ///  GET: Noticias/Edit/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Administrador, Moderador")]
         public ActionResult Edit(int? id)
         {
@@ -209,8 +229,12 @@ namespace HockeyPT.Controllers
         }
 
         // POST: Noticias/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Método que permite editar uma notícia
+        /// </summary>
+        /// <param name="formulario"></param>
+        /// <param name="carregaFotoNoticia"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador, Moderador")]
@@ -308,64 +332,74 @@ namespace HockeyPT.Controllers
 
             return View(noticia);
         }
-        
+
 
         //***************************************************DELETE************************************************
 
         // GET: Noticias/Delete/5
+        /// <summary>
+        /// GET: Noticias/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Administrador, Moderador")]
-public ActionResult Delete(int? id)
-{
-    if (id == null)
-    {
-        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-    }
-    Noticias noticias = db.Noticias.Find(id);
-    if (noticias == null)
-    {
-        return HttpNotFound();
-    }
-    return View(noticias);
-}
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Noticias noticias = db.Noticias.Find(id);
+            if (noticias == null)
+            {
+                return HttpNotFound();
+            }
+            return View(noticias);
+        }
 
-// POST: Equipas/Delete/5
-[HttpPost, ActionName("Delete")]
-[ValidateAntiForgeryToken]
-[Authorize(Roles = "Administrador, Moderador")]
-public ActionResult DeleteConfirmed(int id)
-{
-    //encontrar o id da noticia
-    Noticias noticias = db.Noticias.Find(id);
-    noticias.IsVisible = false;
-    //remover a noticia das noticias
-    var noticiasEquipas = noticias.ListaDeEquipas.ToList();
+        // POST: Equipas/Delete/5
+        /// <summary>
+        /// método que permite apagar uma notícias
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador, Moderador")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            //encontrar o id da noticia
+            Noticias noticias = db.Noticias.Find(id);
+            noticias.IsVisible = false;
+            //remover a noticia das noticias
+            var noticiasEquipas = noticias.ListaDeEquipas.ToList();
 
-    for (var i = 0; i < noticiasEquipas.Count; i++)
-    {
-        var cadaEquipas = noticiasEquipas[i];
-        var RemoveNoticia = cadaEquipas.ListaDeNoticias.Remove(noticias);
+            for (var i = 0; i < noticiasEquipas.Count; i++)
+            {
+                var cadaEquipas = noticiasEquipas[i];
+                var RemoveNoticia = cadaEquipas.ListaDeNoticias.Remove(noticias);
 
-    }
+            }
 
-    db.Entry(noticias).State = EntityState.Modified;
-    db.SaveChanges();
-    return RedirectToAction("Index");
-}
+            db.Entry(noticias).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-public ActionResult NavEquipas()
-{
-    IEnumerable<Equipas> listaDeEquipas = db.Equipas.OrderBy(n => n.ID).ToList();
-    return PartialView(listaDeEquipas);
+        public ActionResult NavEquipas()
+        {
+            IEnumerable<Equipas> listaDeEquipas = db.Equipas.OrderBy(n => n.ID).ToList();
+            return PartialView(listaDeEquipas);
 
-}
+        }
 
-protected override void Dispose(bool disposing)
-{
-    if (disposing)
-    {
-        db.Dispose();
-    }
-    base.Dispose(disposing);
-}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
