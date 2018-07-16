@@ -213,15 +213,13 @@ namespace HockeyPT.Controllers
         public ActionResult Edit(FormCollection formulario,
                             HttpPostedFileBase carregaFotoNoticia)
         {
-
-
             Noticias noticia = db.Noticias.Find((int)Session["id"]);
             //preencher os campos da noticia com os campos do formulário
             noticia.Titulo = formulario["Titulo"];
             noticia.Conteudo = formulario["Conteudo"];
 
             //Preencher a data com o dia em que a noticia foi alterada
-            noticia.Data = System.DateTime.Now;
+            noticia.Data = DateTime.Now;
 
             // preencher o autor com o utilizador que está autenticado
             var idUtilizador = db.Utilizadores.Where(d => d.Username == User.Identity.Name).FirstOrDefault();
@@ -306,14 +304,7 @@ namespace HockeyPT.Controllers
 
             return View(noticia);
         }
-
-
-
-
-
-
-
-          
+        
 
         //***************************************************DELETE************************************************
 

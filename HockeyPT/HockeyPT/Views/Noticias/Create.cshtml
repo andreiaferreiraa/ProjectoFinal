@@ -37,11 +37,12 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Conteudo, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                   
-                        @Html.HiddenFor(model => Model.ID)
-                        @Html.TextAreaFor(model =>model.Conteudo, htmlAttributes: new {@placeholder ="Conteudo da noticia", @style= "height:250px; width:640px;" })
-                    
+
+                    @Html.HiddenFor(model => Model.ID)
+                    @Html.TextAreaFor(model => model.Conteudo, htmlAttributes: new { @placeholder = "Conteudo da noticia", @style = "height:250px; width:640px;" })
+
                 </div>
+                @Html.ValidationMessageFor(model => model.Conteudo, "", new { @class = "text-danger", @style = "margin-left:50px" })
             </div>
 
             <div class="form-group">
@@ -54,6 +55,9 @@
                     @Html.ValidationMessageFor(model => model.Fotografia, "", new { @class = "text-danger" })
                 </div>
             </div>
+
+            <h4 style="font-weight:bold">Selecione a(s) equipa(s) que pertecem à notícia</h4>
+
             <div class="form-group" style="margin-right:10px">
 
                 <div class="col-md-12">
@@ -70,14 +74,12 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Guardar" class="btn btn-success" />
+                    @*<button type="button" class="btn btn-default" style="margin-bottom:0px" onclick="location.href='@Url.Action("Index ", "Noticias", new { id = Model. })'"> Cancelar </button>*@
                 </div>
             </div>
         </div>
+       
     }
-
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
 </body>
 </html>

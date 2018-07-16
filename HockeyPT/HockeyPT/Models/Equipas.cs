@@ -9,8 +9,7 @@ namespace HockeyPT.Models
     public class Equipas
     {
         public Equipas()
-        {
-            ListaDeTorneios = new HashSet<Torneios>();
+        { 
             ListaDeNoticias = new HashSet<Noticias>();
             ListaDeJogadores = new HashSet<Jogadores>();
         }
@@ -23,9 +22,7 @@ namespace HockeyPT.Models
         public string Logotipo { get; set; }
 
         public string Cidade { get; set; }
-
-        public virtual ICollection<Torneios> ListaDeTorneios { get; set; }
-
+        
         public virtual ICollection<Noticias> ListaDeNoticias { get; set; }
 
         public virtual ICollection<Jogadores> ListaDeJogadores { get; set; }

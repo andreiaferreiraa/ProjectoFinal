@@ -34,7 +34,7 @@
         <p>
             @Html.DisplayFor(model => model.Data)
         </p>
-        <p>
+        <p style="margin-left:50px; margin-right:50px">
             @Html.DisplayFor(model => model.Conteudo)
         </p>
 
@@ -66,9 +66,13 @@
             </div>
 
             <hr class="estilo3">
+            
+            @if (!User.Identity.IsAuthenticated) {
             <div class="alert alert-info" style="margin-top:20px; margin-right:690px">
                 <strong>Nota:</strong> Para adicionar um comentário é necessário iniciar sessão!
             </div>
+            }
+            
             @if (User.IsInRole("UtilizadorLogado") || User.IsInRole("Administrador") || User.IsInRole("Moderador"))
             {
                 <div style="margin-top:30px">

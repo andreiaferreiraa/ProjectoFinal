@@ -40,7 +40,6 @@ namespace IdentitySample.Models
         }
         public virtual DbSet<Jogadores> Jogadores { get; set; }
         public virtual DbSet<Equipas> Equipas { get; set; }
-        public virtual DbSet<Torneios> Torneios { get; set; }
         public virtual DbSet<Noticias> Noticias { get; set; }
         public virtual DbSet<Comentarios> Comentarios { get; set; }
         public virtual DbSet<Utilizadores> Utilizadores { get; set; }

@@ -200,18 +200,6 @@ namespace HockeyPT.Migrations
                };
             jogadores.ForEach(jj => context.Jogadores.AddOrUpdate(j => j.ID, jj));
             context.SaveChanges();
-
-            //***************************************************************************************************************
-            // adiciona TORNEIOS
-            var torneios = new List<Torneios> {
-                new Torneios {ID=1, Nome=" Campeonato Nacional", ListaDeEquipas = new List<Equipas>{equipas[0], equipas[1], equipas[2], equipas[3], equipas[4], equipas[5], equipas[6], equipas[7], equipas[8], equipas[9], equipas[10], equipas[11], equipas[12], equipas[13]}},
-                new Torneios {ID=2, Nome=" Taça de Portugal", ListaDeEquipas = new List<Equipas>{equipas[0],equipas[1],equipas[2], equipas[3], equipas[4], equipas[5], equipas[6], equipas[7], equipas[8], equipas[9], equipas[10], equipas[11], equipas[12], equipas[13]}},
-                new Torneios {ID=3, Nome=" Supertaça António Livramento", ListaDeEquipas = new List<Equipas>{equipas[2],equipas[6]}}
-
-            };
-            torneios.ForEach(tt => context.Torneios.AddOrUpdate(t => t.ID, tt));
-            context.SaveChanges();
-
             //***************************************************************************************************************
             //adiciona UTILIZADORES
             var utilizadores = new List<Utilizadores>{

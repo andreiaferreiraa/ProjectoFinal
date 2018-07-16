@@ -18,8 +18,10 @@ namespace HockeyPT.Models
         [Key]
         public int ID { get; set; }
 
+        [Required]
         public string Titulo { get; set; }
 
+        [Required]
         public string Conteudo { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]

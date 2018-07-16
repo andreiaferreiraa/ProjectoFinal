@@ -155,13 +155,13 @@ namespace HockeyPT.Controllers
             if (id == null)
             {
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Equipas");
             }
             Jogadores jogadores = db.Jogadores.Find(id);
             if (jogadores == null)
             {
                 //return HttpNotFound();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Equipas");
             }
             ViewBag.EquipaPK = new SelectList(db.Equipas, "ID", "Nome", jogadores.EquipaPK);
             return View(jogadores);
