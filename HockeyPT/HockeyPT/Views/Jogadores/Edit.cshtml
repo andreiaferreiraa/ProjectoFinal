@@ -65,7 +65,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Altura, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="number" name="Altura" value="@Model.Altura.ToString("0,00")" step="0.1"/>
+                <input type="number" name="Altura" value="@Model.Altura.ToString().Replace(',','.')" step="0.1"/>
                 @*@Html.EditorFor(model => model.Altura, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Altura, "", new { @class = "text-danger" })*@
             </div>
@@ -74,8 +74,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Peso, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Peso, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Peso, "", new { @class = "text-danger" })
+                <input type="number" name="Peso" value="@Model.Peso.ToString().Replace(',','.')" step="0.1" />
+                @*@Html.EditorFor(model => model.Peso, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Peso, "", new { @class = "text-danger" })*@
             </div>
         </div>
 

@@ -69,12 +69,12 @@ namespace IdentitySample
                 };
 
             //criar um utilizador 'Moderador'
-            var moderador = new ApplicationUser();
-            moderador.UserName = "ralvesferreira3@hotmail.com";
-            moderador.Email = "ralvesferreira3@hotmail.com";
+            var moderador1 = new ApplicationUser();
+            moderador1.UserName = "r_a_ferreira3@gmail.com";
+            moderador1.Email = "r_a_ferreira3@gmail.com";
             //password deste moderador
-            string moderadorPWD = "Mod_123";
-            var chkModerador = userManager.Create(moderador, moderadorPWD);
+            string moderador1PWD = "Mod_123";
+            var chkModerador1 = userManager.Create(moderador1, moderador1PWD);
 
             //verifica se teve sucesso
             if (chkUser.Succeeded)
@@ -83,9 +83,47 @@ namespace IdentitySample
                 var result1 = userManager.AddToRole(user.Id, "Administrador");
                 db.Utilizadores.Add(utilizador);
                 db.SaveChanges();
-                var result2 = userManager.AddToRole(moderador.Id, "Moderador");
+                var result2 = userManager.AddToRole(moderador1.Id, "Moderador");
 
             }
+
+            var moderador2 = new ApplicationUser();
+            moderador2.UserName = "jcarlopes3@hotmail.com";
+            moderador2.Email = "jcarlopes3@hotmail.com";
+            //password deste moderador
+            string moderador2PWD = "Mod_123";
+            var chkModerador2 = userManager.Create(moderador2, moderador2PWD);
+
+            //verifica se teve sucesso
+            if (chkUser.Succeeded)
+            {
+                //caso tenha adiciona
+                var result1 = userManager.AddToRole(user.Id, "Administrador");
+                db.Utilizadores.Add(utilizador);
+                db.SaveChanges();
+                var result2 = userManager.AddToRole(moderador2.Id, "Moderador");
+
+            }
+
+            var moderador3 = new ApplicationUser();
+            moderador3.UserName = "ananunesrib9@gmail.com";
+            moderador3.Email = "ananunesrib9@gmail.com";
+            //password deste moderador
+            string moderador3PWD = "Mod_123";
+            var chkModerador3 = userManager.Create(moderador3, moderador3PWD);
+
+            //verifica se teve sucesso
+            if (chkUser.Succeeded)
+            {
+                //caso tenha adiciona
+                var result1 = userManager.AddToRole(user.Id, "Administrador");
+                db.Utilizadores.Add(utilizador);
+                db.SaveChanges();
+                var result2 = userManager.AddToRole(moderador3.Id, "Moderador");
+
+            }
+
+
 
 
 
