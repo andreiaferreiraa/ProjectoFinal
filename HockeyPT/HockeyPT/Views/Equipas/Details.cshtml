@@ -36,8 +36,8 @@
             {
                 <div>
                     <div class="col-md-4">
-                        <div class="img-thumbnail" style="margin-bottom:10px;">
-                            <img class="imagemJogador" onclick="location.href='@Url.Action("Details","Jogadores", new { id = jogadores.ID })'" src="~/JogadoresFotos/@Html.DisplayFor(j=>jogadores.Fotografia)" width="260" height="409" />
+                        <div class="img-thumbnail" style="margin-bottom:10px; width:100%; height:100%">
+                            <img class="imagemJogador" onclick="location.href='@Url.Action("Details","Jogadores", new { id = jogadores.ID })'" src="~/JogadoresFotos/@Html.DisplayFor(j=>jogadores.Fotografia)" style="width:100%; height:490px" />
                             <div class="caption" style="height:30px">
                                 <p style="font-family: 'Arial';font-size:130%;color:black;text-align:center">@Html.DisplayFor(nome => jogadores.Nome)</p>
                             </div>
@@ -58,7 +58,7 @@
 
 
 
-    <button type="button" class="btn btn-default" style="margin-bottom:0px; margin-top:500px;" onclick="location.href='@Url.Action("Index", "Noticias", new { id = Model.ID })'"> Voltar ao Inicio </button>
+    <button type="button" class="btn btn-default" style="margin-bottom:0px; " onclick="location.href='@Url.Action("Index", "Noticias", new { id = Model.ID })'"> Voltar ao Inicio </button>
 
 
 

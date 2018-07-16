@@ -155,13 +155,13 @@ namespace HockeyPT.Controllers
             if (id == null)
             {
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                return RedirectToAction("Details", "Equipas");
+                return RedirectToAction("Index");
             }
             Jogadores jogadores = db.Jogadores.Find(id);
             if (jogadores == null)
             {
                 //return HttpNotFound();
-                return RedirectToAction("Details", "Equipas");
+                return RedirectToAction("Index");
             }
             ViewBag.EquipaPK = new SelectList(db.Equipas, "ID", "Nome", jogadores.EquipaPK);
             return View(jogadores);
@@ -214,7 +214,7 @@ namespace HockeyPT.Controllers
                     if(ficheiroFotografiaJogador!=null)
                         System.IO.File.Delete(Path.Combine(Server.MapPath("~/JogadoresFotos/"), nomeAntigo));
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Details", "Equipas", new { id = jogador.EquipaPK });
                 }
                 catch (Exception)
                 {
